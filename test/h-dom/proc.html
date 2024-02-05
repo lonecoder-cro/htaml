@@ -1,0 +1,20 @@
+<html lang="en">
+
+    <head>
+        <script crossorigin="anonymous" defer type="text/javascript" src="../../dist/htaml.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+
+        <div h-dom:data="{count:'jae'}">
+            <button h-on:trigger="click" h-run:hcode="const realCount = $count;console.log(realCount);"
+                h-dom:proc="nextSibling onProcess:remove_old">Increment</button>
+
+            <span h-dom:text="count"></span>
+        </div>
+    </body>
+
+</html>

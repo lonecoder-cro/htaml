@@ -1,0 +1,85 @@
+<html id="html" lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="./assets/css/style.css" />
+        <script crossorigin="anonymous" defer type="text/javascript" src="../../dist/htaml.js"></script>
+        <title>h-req:get</title>
+        <style>
+            .htaml-none {
+                opacity: 0;
+            }
+
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                overflow-y: auto;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+        </style>
+    </head>
+
+    <body class="htaml-none htaml-fadein-active">
+        <header>
+            <div>
+                <a href="/">
+                    <h2>Japho<span>lio</span></h2>
+                </a>
+            </div>
+        </header>
+
+        <main id="main">
+            <section class="container">
+
+                <!-- projects -->
+                <section id="projects" class="observer">
+                    <div id="projects__header">
+                        <h3>My <span>Projects</span></h3>
+                        <h2>What I Made</h2>
+                    </div>
+
+                    <div id="projects__ideas">
+                        <div id="projects__tabs">
+                            <ul>
+                                <li>JsonPlaceHolder Photos</li>
+                            </ul>
+                        </div>
+
+                        <div h-dom:cloak="cloak" h-req:get="https://jsonplaceholder.typicode.com/photos"
+                            h-req:out="photos" h-run:for="photo in photos" id="projects__tabs-content">
+                            <div id="projects__project">
+                                <div id="projects__img">
+                                    <img h-dom:src="photo.thumbnailUrl" h-dom:alt="photo.id" />
+                                </div>
+                                <div id="projects__info">
+                                    <h3 h-dom:text="photo.id"></h3>
+                                    <div>
+                                        <p h-dom:text="photo.title"></p>
+                                    </div>
+                                </div>
+                                <div id="projects__link"><a h-dom:href="photo.url" h-dom:text="project.albumId"
+                                        target="_blank"></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </section>
+
+            </section>
+        </main>
+    </body>
+
+
+</html>
