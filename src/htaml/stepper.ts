@@ -1,9 +1,8 @@
-import { removeHTAMLAttributeFromHTAMLElement, getVariable, htamlEvalHCode, htamlEval, removeClassesFromHTAMLElement, replaceVariable } from "../core/utils";
+import { cloneHTAMLNode, removeHTAMLAttributeFromHTAMLElement, getVariable, htamlEvalHScript, htamlEval, removeClassesFromHTAMLElement, replaceVariable } from "../core/utils";
 import { htamlGet, htamlPost } from "../core/req";
 import HTAMLParser from "./parser";
-import CJson from "../core/cjson";
-import ToJObject from "../core/tojobject";
 import { HTAMLElement } from "./interface";
+import HTAMLJParser from "../htaml_jparser";
 
 export default class HTAMLElmStepper {
   /*
@@ -12,13 +11,13 @@ export default class HTAMLElmStepper {
     */
 
   htamlParser: HTAMLParser = new HTAMLParser();
+  parsedHTAMLElements: Array<HTAMLElement>;
   htamlElements: Array<HTAMLElement>;
-  allHTAMLMLElements: Array<HTAMLElement>;
 
-  constructor(htamlElements: Array<HTAMLElement> = [], allHTAMLMLElements: Array<HTAMLElement>) {
-    this.htamlElements = htamlElements;
-    this.allHTAMLMLElements = allHTAMLMLElements;
-    this.__stepThroughHTAMLElements(this.htamlElements).catch((error) => console.error(error));
+  constructor(htamlElements: any) {
+    this.parsedHTAMLElements = htamlElements.parsed;
+    this.htamlElements = htamlElements.elements;
+    this.__stepThroughHTAMLElements(this.parsedHTAMLElements).catch((error) => console.error(error));
   }
 
   private async __handleOnAttribute(htamlElement: any, attribute: any) {
@@ -124,12 +123,12 @@ export default class HTAMLElmStepper {
       const element: HTMLElement = htamlElement.root;
 
       let value = attribute.value;
-      if (attribute.action === "hcode") {
+      if (attribute.action === "hscript") {
         // runs javscript code
         value = replaceVariable(value, htamlElement) as any;
         if (value) {
           value = value.replace(/\s\s/g, "");
-          htamlElement.variables["hcode"] = await htamlEvalHCode(value);
+          htamlElement.variables["hscript"] = await htamlEvalHScript(value);
         }
       } else if (attribute.action === "for" && attribute.value.match(/(\sin\s)/)) {
         element.classList.add("htaml-cloak");
@@ -143,24 +142,25 @@ export default class HTAMLElmStepper {
           if (data) {
             this.htamlParser.removeChildNodesFromHTAMLElement(htamlElement);
 
+            let last_clone: any = null;
             const __processNode = async (data: any, htamlElement: HTAMLElement): Promise<any> => {
               Object.assign(htamlElement.variables, data);
-              htamlElement = (await this.__stepThroughHTAMLElement(htamlElement)) as HTAMLElement;
 
-              if (!htamlElement) return null;
+              htamlElement = (await this.__stepThroughHTAMLElement(htamlElement)) as HTAMLElement;
               if (htamlElement.childrens) {
                 for (let child of htamlElement.childrens) {
-                  child = await __processNode(data, this.htamlParser.cloneHTAMLNode(child));
-                  if (child) htamlElement.root.appendChild(child.root);
+                  child = await __processNode(data, cloneHTAMLNode(child));
+                  if (child.root) htamlElement.root.appendChild(child.root);
                 }
               }
               return htamlElement;
             };
+
             for (let _htamlElement of htamlElement.childrens) {
               let index: number = 0;
               for (let value of data) {
                 //for each child step over each inner child and process elements
-                let clone = this.htamlParser.cloneHTAMLNode(_htamlElement);
+                let clone = cloneHTAMLNode(_htamlElement);
 
                 // dom:text only understands key value pairs, so to solve this problem i
                 // will put the array value in a object as follow -> eg: [varToReplace] = '0'
@@ -192,17 +192,11 @@ export default class HTAMLElmStepper {
     });
   }
 
-  private async __handleHCode(htamlElement: any): Promise<HTAMLElement | null> {
+  private async __handleHScript(htamlElement: any): Promise<HTAMLElement | null> {
     /*        Note: The results of a hscript will always be place on the parent tag    */
-
-    //htamlElement = await this.__stepThroughHTAMLElement(htamlElement)
-    //if (!htamlElement) return null
 
     let root: HTMLElement = htamlElement.root;
     let code: string = root.innerText;
-
-    //Since <h-script></h-script> tag only holde code, we stepThrought its attriutes before parse body
-    // htamlElement = await this__.stepThroughHTAMLElement(htamlElement)
 
     let variable: any = code.match(/return\s(\w+)/); //the name of the return variable
     if (variable.length < 2 || variable.length > 2) return null;
@@ -211,10 +205,10 @@ export default class HTAMLElmStepper {
     code = replaceVariable(code, htamlElement) as any;
     if (code) {
       code = code.replace(/\s\s/g, "");
-      await htamlEvalHCode(code);
+      await htamlEvalHScript(code);
     }
 
-    const result = (await htamlEvalHCode(code)) as any;
+    const result = (await htamlEvalHScript(code)) as any;
     if (result) htamlElement.parent.variables[variable] = result;
 
     return htamlElement;
@@ -318,10 +312,10 @@ export default class HTAMLElmStepper {
               }
             }
           } else {
-            // mosliky a dom id or class
+            // mosliky a dom id
             if (values[0].charAt(0) == "#") values[0] = values[0].substring(1);
 
-            for (const htamlElement of this.allHTAMLMLElements) {
+            for (const htamlElement of this.htamlElements) {
               if (htamlElement.root.id == values[0]) {
                 target = htamlElement;
                 break;
@@ -345,7 +339,7 @@ export default class HTAMLElmStepper {
                     case "onProcess":
                       if (modifier[1] === "remove_old") {
                         //removes old node and add new node
-                        const clone = this.htamlParser.cloneHTAMLNode(target);
+                        const clone = cloneHTAMLNode(target);
                         target.root.remove();
                         target = await this.__stepThroughHTAMLElement(clone);
                         element.nextSibling.remove();
@@ -400,9 +394,9 @@ export default class HTAMLElmStepper {
           break;
         case "data":
           //we have data to store
-          new ToJObject().toJavascriptObject(attribute.value);
-          const json = new CJson().parseToJSON(attribute.value);
-          Object.assign(htamlElement.variables, json);
+          let json: any = new HTAMLJParser(attribute.value);
+          const result = await htamlEval(json);
+          Object.assign(htamlElement.variables, result);
           break;
         case "text":
           // set the inner text of a element
@@ -437,7 +431,7 @@ export default class HTAMLElmStepper {
     for (const _a of htamlElement.attributes) {
       switch (_a.id.split("-")[1]) {
         case "hscript":
-          if (_a.value) await this.__handleHCode(htamlElement);
+          if (_a.value) await this.__handleHScript(htamlElement);
           return null;
         case "run":
           htamlElement = await this.__handleRunAttribute(htamlElement, _a);

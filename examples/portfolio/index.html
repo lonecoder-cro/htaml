@@ -10,8 +10,6 @@
 
         <script crossorigin="anonymous" defer type="text/javascript" src="../../dist/htaml.js"></script>
         <script src="https://kit.fontawesome.com/c275cd6b9c.js" crossorigin="anonymous"></script>
-
-        <script src="https://kit.fontawesome.com/c275cd6b9c.js" crossorigin="anonymous"></script>
         <!-- Google analyasis Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-L18MPLRG8V"></script>
         <script>
@@ -60,7 +58,7 @@
                         <p>With knowlegde of Web Development and Software Development, I offer the best projects
                             resulting in quality.</p>
                         <button h-on:trigger="click"
-                            h-run:hcode="document.getElementById('contact').scrollIntoView({behavior: 'smooth' })">Let's
+                            h-run:hscript="document.getElementById('contact').scrollIntoView({behavior: 'smooth' })">Let's
                             Talk</button>
                         <div>
                             <a href="#" target="_blank" rel="noopener noreferrer"> <i
@@ -91,63 +89,73 @@
                         <h2>My Skills</h2>
                     </div>
 
-                    <h-code>
+                    <h-script>
                         const skills = [
                         {
-                        'name': 'Mobile App Skills',
+                            'name': 'Mobile App Skills',
+                            'skills': [
+                                "PWA's",
+                                'NativaScript',
+                                'Android Studio'
+                            ],
+                        },
+                        {
+                            'name': 'Frontend Skills',
+                            'skills': [
+                                'CSS3',
+                                'SCSS',
+                                'HTML5',
+                                'Angular+',
+                                'Typescript',
+                                'Javascript'
+                            ],
+                        },
+                        {
+                            'name': 'Backend Skills',
+                            'skills': [
+                                'Flask',
+                                'NodeJs',
+                                'Express',
+                            ],
+                        },
+                        {
+                            'name': 'Software Skills',
+                            'skills': [
+                                'C',
+                                'C#',
+                                'Go',
+                                'Java',
+                                'Kotlin',
+                                'JScript',
+                                'Python'
+                            ],
+                        },
+                        {
+                        'name': 'Hardware Skills',
                         'skills': [
-                        "Flutter",
-                        'NativaScript',
-                        'Android Studio',
+                            'Embedded C',
+                            'Arduino C++'
                         ],
                         },
                         {
-                        'name': 'Frontend Skills',
-                        'skills': [
-                        'CSS3',
-                        'HTML5',
-                        'Angular+',
-                        'Typescript',
-                        'Javascript'
-                        ],
-                        },
-                        {
-                        'name': 'Backend Skills',
-                        'skills': [
-                        'Flask',
-                        'NodeJs',
-                        'Express',
-                        ],
-                        },
-                        {
-                        'name': 'Software/Hardware Skills',
-                        'skills': [
-                        'C',
-                        'C#',
-                        'Go',
-                        'Vbs',
-                        "AvrC",
-                        'Batch',
-                        'Python',
-                        'Kotlin\Java',
-                        ],
-                        },
-                        {
-                        'name': 'Essentials Skills',
-                        'skills': [
-                        'Azure',
-                        'Github',
-                        'Docker',
-                        'MongoDb',
-                        'Lucidchart'
-                        ],
+                            'name': 'Essentials Skills',
+                            'skills': [
+                                'SQL',
+                                'Github',
+                                'Docker',
+                                'MongoDb',
+                                'Lucidchart',
+                                'Microservices',
+                                'Microsoft 365',
+                                'Microsoft Azure'
+                            ],
                         }
                         ];
                         return skills;
-                    </h-code>
+                    </h-script>
 
-                    <div h-run:for="skill in skills" id="about__cards">
-                        <div id="about__card">
+                    <div h-run:for="skill in skills" id="skills__cards">
+                        <div id="skills__card">
                             <h3 h-dom:text="skill.name"></h3>
                             <ul h-run:for="name in skill.skills">
                                 <li h-dom:text="name"></li>
@@ -163,7 +171,7 @@
                         <h2>What I Offer</h2>
                     </div>
 
-                    <h-code>
+                    <h-script>
                         const services = [
                         {
                         'name': 'Web Developer',
@@ -177,7 +185,7 @@
                         }
                         ];
                         return services;
-                    </h-code>
+                    </h-script>
 
                     <div h-run:for="service in services" id="services__cards">
                         <div id="services__card">
@@ -206,11 +214,13 @@
                                 <li h-on:trigger="click" h-dom:flick="#web attr:tab active:.tabactive">Web </li>
                                 <li h-on:trigger="click" h-dom:flick="#bots attr:tab active:.tabactive">Bots</li>
                                 <li h-on:trigger="click" h-dom:flick="#shell attr:tab active:.tabactive">Shell</li>
+                                <li h-on:trigger="click" h-dom:flick="#devprojects attr:tab active:.tabactive">Projects
+                                </li>
                             </ul>
                         </div>
 
                         <section id="ui" tab>
-                            <h-code>
+                            <h-script>
                                 let uis = [
                                 {
                                 'name': 'CroSafe',
@@ -236,7 +246,7 @@
                                 ];
 
                                 return uis;
-                            </h-code>
+                            </h-script>
 
                             <div h-run:for="ui in uis" id="projects__tabs-content">
                                 <div id="projects__project">
@@ -257,7 +267,7 @@
                         </section>
 
                         <section id="web" h-dom:cloak="none" tab>
-                            <h-code>
+                            <h-script>
                                 let webs = [
                                 {
                                 'name': 'Fassion Breeze',
@@ -285,7 +295,7 @@
                                 ];
 
                                 return webs;
-                            </h-code>
+                            </h-script>
 
                             <div h-run:for="web in webs" id="projects__tabs-content">
                                 <div id="projects__project">
@@ -306,7 +316,7 @@
                         </section>
 
                         <section id="bots" h-dom:cloak="none" tab>
-                            <h-code>
+                            <h-script>
                                 let bots = [
                                 {
                                 'name': 'Instagram',
@@ -342,7 +352,7 @@
                                 ];
 
                                 return bots;
-                            </h-code>
+                            </h-script>
 
                             <div h-run:for="bot in bots" id="projects__tabs-content">
                                 <div id="projects__project">
@@ -363,7 +373,7 @@
                         </section>
 
                         <section id="shell" h-dom:cloak="none" tab>
-                            <h-code>
+                            <h-script>
                                 let shells = [
                                 {
                                 'name': 'CroSteg',
@@ -412,7 +422,7 @@
                                 ];
 
                                 return shells;
-                            </h-code>
+                            </h-script>
 
                             <div h-run:for="shell in shells" id="projects__tabs-content">
                                 <div id="projects__project">
@@ -426,6 +436,46 @@
                                         </div>
                                     </div>
                                     <div id="projects__link"><a h-dom:href="shell.link" h-dom:text="shell.link_text"
+                                            target="_blank"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="devprojects" h-dom:cloak="none" tab>
+                            <h-script>
+                                let devprojects = [
+                                    {
+                                    'name': 'HTAMLJS',
+                                    'icon': './assets/icon/radar.png',
+                                    'link_text': 'View Code',
+                                    'link': 'https://github.com/cro-technologies/htamljs',
+                                    'description': 'A javascript libary similar to "HTMX" but written my way. It also powers this website.',
+                                    },
+                                    {
+                                    'name': 'CroLang',
+                                    'icon': './assets/icon/radar.png',
+                                    'link_text': 'View Code',
+                                    'link': 'https://github.com/cro-technologies/cro_lang',
+                                    'description': 'My attempt of creating a interpreted programming language.',
+                                    }
+                                ];
+
+                                return devprojects;
+                            </h-script>
+
+                            <div h-run:for="project in devprojects" id="projects__tabs-content">
+                                <div id="projects__project">
+                                    <div id="projects__img">
+                                        <img h-dom:src="project.icon" h-dom:alt="project.link_text" />
+                                    </div>
+                                    <div id="projects__info">
+                                        <h3 h-dom:text="project.name"></h3>
+                                        <div>
+                                            <p h-dom:text="project.description"></p>
+                                        </div>
+                                    </div>
+                                    <div id="projects__link"><a h-dom:href="project.link" h-dom:text="project.link_text"
                                             target="_blank"></a>
                                     </div>
                                 </div>
@@ -466,8 +516,9 @@
             </div>
 
             <div>
-                <p h-run:hcode="return new Date().getFullYear()" h-dom:data="{devYear:'2023'}" h-run:if="hcode > 2023"
-                    h-dom:text="Copyright &copy;, devYear,-,hcode, japholio.com. All rights reserved."></p>
+                <p h-run:hscript="return new Date().getFullYear()" h-dom:data="{devYear:2023}"
+                    h-run:if="hscript > devYear"
+                    h-dom:text="Copyright &copy;, devYear,-,hscript, japholio.com. All rights reserved."></p>
             </div>
         </footer>
     </body>

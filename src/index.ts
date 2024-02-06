@@ -1,5 +1,5 @@
 import HTAMLParser from "./htaml/parser";
-import HTAMLElmStepper from "./htaml/elm_stepper";
+import HTAMLElmStepper from "./htaml/stepper";
 import { EventEmitter, createEvent, removeClassesFromHTAMLElement } from "./core/utils";
 import Stylesheet from "./htaml/stylesheet";
 
@@ -45,16 +45,16 @@ declare global {
     createEvent(document, "htaml:init", args);
 
     const hParser = new HTAMLParser();
-    const elements = await hParser.parseDomElements(document.body.children);
+    const elementsObject = await hParser.parseDomElements(document.body.children);
 
     document.body.classList.remove("htaml-none");
 
     logger("dom parsed");
-    createEvent(document, "htaml:parsed", elements);
+    createEvent(document, "htaml:parsed", elementsObject);
 
-    new HTAMLElmStepper(elements[0], elements[1]);
+    new HTAMLElmStepper(elementsObject);
 
     logger("all htaml elements processed");
-    createEvent(document, "htaml:processed", elements);
+    createEvent(document, "htaml:processed", elementsObject);
   });
 })();

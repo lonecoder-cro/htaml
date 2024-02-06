@@ -1,46 +1,21 @@
 import { HTAML_STATE } from "../config";
 import { HTAMLElement } from "./../htaml/interface";
 
-// export function processModifyers(modifyer: string, htamlElement: HTAMLElement, stepThroughHTAMLElementFunction: any, removeEventListener:{event_name: string, listener:any}) {
-//     modifyer = modifyer.split(':')
-//     switch (modifyer[0]) {
-//         case 'once':
-//             htamlElement.root.removeEventListener(removeEventListener.event_name, removeEventListener.listener)
-//             return true
-//             break
-//         case 'delay':
-//             let timeout = 0
-//             const _ = modifyer[1]
-//             if (_.length == 3) {
-//                 // [juunk,timeout,timemodifiey]
-//                 if (_[2] === 's') timeout = Number(_[1] * 1000)
-//                 else if (_[2] === 'ms') timeout = Number(_[1] * 1000000)
-//             }
+export function cloneHTAMLNode(htamlElement: HTAMLElement, options: any = { cloneAll: false, removeOriginal: true }): any {
+  const clone = {
+    id: htamlElement.id,
+    root: htamlElement.root.cloneNode(options.cloneAll),
+    parent: htamlElement.parent,
+    request: htamlElement.request,
+    response: htamlElement.response,
+    variables: htamlElement.variables,
+    childrens: htamlElement.childrens,
+    attributes: htamlElement.attributes,
+  };
 
-//             if (timeout > 0x7fffffff || timeout < 1) timeout = 1
-
-//             setTimeout(async () => {
-//                 await stepThroughHTAMLElementFunction(htamlElement)
-//             }, timeout)
-//             return true
-//             break
-//         case 'cloak':
-//             htamlElement.root.classList.toggle(`htaml-${modifyer[1]}`)
-//             return
-//             break
-//         case 'onProcess':
-//             if (value[1] === 'remove_old') {
-//                 //removes old node and add new node
-//                 const clone = this.htamlParser.cloneHTAMLNode(target)
-//                 htamlElement.root.remove()
-//                 htamlElement = await this.stepThroughHTAMLElement(clone)
-//                 element.nextSibling.remove()
-//                 element.insertAdjacentElement('afterend', target.root)
-//                 isModified = true
-//             }
-//             break
-//     }
-// }
+  if (options.removeOriginal) htamlElement.root.remove();
+  return clone;
+}
 
 export function removeHTAMLAttributeFromHTAMLElement(htamlElement: any, attribute: any): HTAMLElement {
   htamlElement.attributes = htamlElement.attributes.filter((_a: any) => _a.action !== attribute.action);
@@ -67,7 +42,7 @@ export function replaceVariable(value: string, htamlElement: HTAMLElement, optio
         else value = value.replace(new RegExp(variable, "g").source, data);
       }
     }
-  } else if (htamlElement.root.tagName !== HTAML_STATE.H_CODE) {
+  } else if (htamlElement.root.tagName !== HTAML_STATE.H_SCRIPT) {
     const variables: any | Array<string> = value.match(/[([a-zA-Z_)|(a-zA-Z_\.)]+/gi);
 
     const _ = (vars: any, variableData: any) => {
@@ -143,16 +118,12 @@ export function isWhiteSpace(str: string) {
   return /\s/g.test(str);
 }
 
+export function isNumber(str: string) {
+  return true ? str.length === 1 && str.match(/[0-9]/i) : false;
+}
+
 export function isLetter(str: string) {
   return true ? str.length === 1 && str.match(/[a-zA-Z0-9]/i) : false;
-}
-
-export function isColon(str: string) {
-  return true ? str.length === 1 && str.match(/:/) : false;
-}
-
-export function isComma(str: string) {
-  return true ? str.length === 1 && str.match(/,/) : false;
 }
 
 export function createEvent(element: HTMLElement | Document, eventName: string, args: any = null) {
@@ -219,7 +190,7 @@ export class EventEmitter {
   }
 }
 
-export async function htamlEvalHCode(code: string): Promise<string | null> {
+export async function htamlEvalHScript(code: string): Promise<string | null> {
   //eval hscript / javascript code
   return new Promise((resolve, reject) => {
     function _() {

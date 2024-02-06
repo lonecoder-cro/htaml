@@ -1,6 +1,6 @@
 import { HTAML_STATE } from "../config";
 import { HTAMLElement } from "./interface";
-import { removeHTAMLAttributeFromHTAMLElement} from "../core/utils";
+import { removeHTAMLAttributeFromHTAMLElement } from "../core/utils";
 export default class HTAMLParser {
   /*
     dom - use to manipulate the dom
@@ -14,22 +14,6 @@ export default class HTAMLParser {
   attribute_regex: RegExp = /(h|ht|hta|htaml)-(\w*):(\w*)/;
 
   constructor() {}
-
-  cloneHTAMLNode(htamlElement: HTAMLElement, options: any = { cloneAll: false, removeOriginal: true }): any {
-    const clone = {
-      id: htamlElement.id,
-      root: htamlElement.root.cloneNode(options.cloneAll),
-      parent: htamlElement.parent,
-      request: htamlElement.request,
-      response: htamlElement.response,
-      variables: htamlElement.variables,
-      childrens: htamlElement.childrens,
-      attributes: htamlElement.attributes,
-    };
-
-    if (options.removeOriginal) htamlElement.root.remove();
-    return clone;
-  }
 
   removeChildNodesFromHTAMLElement(htamlElement: any) {
     htamlElement.childrens.map((htamlElement: any) => htamlElement.root.remove());
@@ -143,10 +127,8 @@ export default class HTAMLParser {
       const domId: any = this._element[id].root.parentElement.getAttribute("h-dom:id");
       if (domId) this._element[id].parent = this._element[Number(domId)];
     }
-    //  this._element[id] = await this._stepThroughHTAMLElement(this._element[id])
-    if (this._element[id].root.tagName === HTAML_STATE.H_CODE) {
-      this._element[id] = await this._parseHScriptElement(this._element[id]);
-    }
+
+    if (this._element[id].root.tagName === HTAML_STATE.H_SCRIPT) this._element[id] = await this._parseHScriptElement(this._element[id]);
     if (this._element[id].root.children.length) this._element[id].childrens = await this._parseElementChildrens(this._element[id].root.children);
 
     await this.removeHTAMLAttributesFromHTAMLElement(this._element[id]);
@@ -161,6 +143,6 @@ export default class HTAMLParser {
       if (children) parsedElements.push(children);
     }
 
-    return [parsedElements, this._elements];
+    return { parsed: parsedElements, elements: this._elements } as any;
   }
 }

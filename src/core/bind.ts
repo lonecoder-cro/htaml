@@ -1,3 +1,0 @@
-export class Databind{
-   // con
-}
