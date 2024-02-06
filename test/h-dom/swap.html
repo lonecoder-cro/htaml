@@ -1,0 +1,91 @@
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="./assets/css/style.css" />
+
+        <script defer type="module" src="../../dist/htaml.js"></script>
+        <script src="https://kit.fontawesome.com/c275cd6b9c.js" crossorigin="anonymous"></script>
+        <title>Swap</title>
+
+        <style>
+            .htaml-cloak {
+                opacity: 0;
+            }
+        </style>
+    </head>
+
+    <body class="htaml-fadein-active">
+        <header
+            h-dom:data="{about:'About',skills:'Skills',services:'Services',projects:'Projects',contact:'Contact',j:'Japho',l:'lio'}">
+            <div>
+                <a href="/">
+                    <h2 h-dom:text="j"><span h-dom:text="l"></span></h2>
+                </a>
+            </div>
+            <div>
+                <a href="#about" h-dom:text="about"></a>
+                <a href="#skills" h-dom:text="skills"></a>
+                <a href="#services" h-dom:text="services"></a>
+                <a href="#projects" h-dom:text="projects"></a>
+                <a href="#contact" h-dom:text="contact"></a>
+            </div>
+        </header>
+
+        <main id="main">
+            <section class="container">
+
+                <!-- info -->
+                <section id="info" class="observer">
+                    <div id="info__doc">
+                        <h2>Hello, <span>I'm</span></h2>
+                        <h1>Jaedan Willis</h1>
+                        <h2>Free Lancer</h2>
+                        <p>With knowlegde of Web Development and Software Development, I offer the best projects
+                            resulting in quality.</p>
+                        <button h-on:trigger="click once" h-req:get="swap_demo.html" h-dom:swap="#swap outter">Press
+                            Me To
+                            Swap</button>
+                        <div>
+                            <a href="#" target="_blank" rel="noopener noreferrer"> <i
+                                    class="fa-brands fa-instagram"></i></a>
+                            <a href="#" target="_blank" rel="noopener noreferrer"><i
+                                    class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="#" target="_blank" rel="noopener noreferrer"><i
+                                    class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div id="info__image">
+                        <img src="./assets/images/me.jpg" alt="a pic of me" />
+                    </div>
+                </section>
+
+                <div id="swap" h-dom:cloak="none"></div>
+
+            </section>
+        </main>
+
+        <footer>
+            <div>
+                <h1><span></span></h1>
+            </div>
+            <div>
+                <a href="#" target="_blank" rel="noopener noreferrer"> <i class="fa-brands fa-instagram"></i></a>
+                <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+
+            <div>
+                <p>Copyright &copy; {{copywrite.date}} {{copywrite.info}}</p>
+            </div>
+        </footer>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <script type="text/javascript" src="./assets/scripts/index.js"></script>
+
+    </body>
+
+</html>
