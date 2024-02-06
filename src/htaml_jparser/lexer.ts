@@ -16,12 +16,12 @@ export default class Lexer {
   }
 
   private createId() {
-    let token = "";
-    while (isLetter(this.current_character) || this.current_character == "_") {
-      token += this.current_character;
+    let id = "";
+    while (this.current_character != ":") {
+      id += this.current_character;
       this.advance();
     }
-    return token;
+    return id;
   }
 
   private createString() {

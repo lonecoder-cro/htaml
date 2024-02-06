@@ -1,8 +1,11 @@
 # HTAML Attributes Identifiers
 
-## Page Load/Flicker
+HTAML (Hypertext Advance Markup Language) is a...
 
-  ```html
+## Tips
+
+* To prevent flickering of dom elements you can do as follow
+ ```html
 <!-- Use builting class for smooth transition to visible on page load -->
 <body class="htaml-fadein-active"></body>
 
@@ -66,6 +69,7 @@ Used to toggle (on|off) an element on the DOM
 #### The data action
 
 Used to declare object like data
+Note: A key inside the data object should not have a number value
 
 ```html
 <header h-dom:data="{about:'About',skills:'Skills'}">

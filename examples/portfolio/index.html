@@ -7,19 +7,6 @@
 
         <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="./assets/css/style.css" />
-
-        <script crossorigin="anonymous" defer type="text/javascript" src="../../dist/htaml.js"></script>
-        <script src="https://kit.fontawesome.com/c275cd6b9c.js" crossorigin="anonymous"></script>
-        <!-- Google analyasis Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L18MPLRG8V"></script>
-        <script>
-            window.dataLayer = window.dataLayer || []
-            function gtag() {
-                dataLayer.push(arguments)
-            }
-            gtag("js", new Date())
-            gtag("config", "G-L18MPLRG8V");
-        </script>
         <title>Japholio</title>
 
         <style>
@@ -31,10 +18,10 @@
 
     <body class="htaml-none htaml-fadein-active">
         <header
-            h-dom:data="{about:'About',skills:'Skills',services:'Services',projects:'Projects',contact:'Contact',j:'Japho',l:'lio'}">
+            h-dom:data="{about:'About',skills:'Skills',services:'Services',projects:'Projects',contact:'Contact',text_one:'Japho',text_two:'lio'}">
             <div>
                 <a href="/">
-                    <h2 h-dom:text="j"><span h-dom:text="l"></span></h2>
+                    <h2 h-dom:text="text_one"><span h-dom:text="text_two"></span></h2>
                 </a>
             </div>
             <div>
@@ -70,7 +57,7 @@
                         </div>
                     </div>
                     <div id="info__image">
-                        <img src="./assets/images/me.jpg" alt="a pic of me" />
+                        <img src="./assets/images/IMG-20190926-WA0011.jpg" alt="a pic of me" />
                     </div>
                 </section>
 
@@ -518,13 +505,28 @@
             <div>
                 <p h-run:hscript="return new Date().getFullYear()" h-dom:data="{devYear:2023}"
                     h-run:if="hscript > devYear"
-                    h-dom:text="Copyright &copy;, devYear,-,hscript, japholio.com. All rights reserved."></p>
+                    h-dom:text="Copyright &copy;,' ',devYear,-,hscript, japholio.com. All rights reserved.Powered by htaml.js and flask.">
+                </p>
             </div>
         </footer>
     </body>
 
+    <!-- external scripts -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript" src="./assets/scripts/index.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L18MPLRG8V"></script>
+    <script src="https://kit.fontawesome.com/c275cd6b9c.js" crossorigin="anonymous"></script>
+    <script>
+        //Google analyasis Google tag (gtag.js)
+        window.dataLayer = window.dataLayer || []
+        function gtag() {
+            dataLayer.push(arguments)
+        }
+        gtag("js", new Date())
+        gtag("config", "G-L18MPLRG8V");
+    </script>
 
+    <!-- local scripts -->
+    <script type="text/javascript" src="./assets/scripts/index.js"></script>
+    <script crossorigin="anonymous" defer type="text/javascript" src="../../dist/htaml.js"></script>
 
 </html>
