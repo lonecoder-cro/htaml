@@ -1,8 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap");
-/*
-Media Quries
-*/
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap");
 main #projects {
   margin-bottom: 2em;
   display: flex;
@@ -168,26 +164,4 @@ img {
   .container {
     width: 80%;
   }
-}
-
-.observer {
-  transition-property: all;
-  transition-timing-function: ease-in-out;
-  transition-duration: 1ms;
-}
-
-.observer-show {
-  opacity: 1;
-}
-
-.observer-hide {
-  opacity: 0;
-}
-
-.tab-hide {
-  display: none;
-}
-
-.tab-show {
-  display: flex;
 }

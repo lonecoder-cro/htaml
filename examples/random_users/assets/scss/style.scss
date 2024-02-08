@@ -1,6 +1,5 @@
 @import "utilities";
 @import "index";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap");
 
 * {
   padding: 0;
@@ -41,26 +40,4 @@ img {
   @include desktop {
     width: 80%;
   }
-}
-
-.observer {
-  transition-property: all;
-  transition-timing-function: ease-in-out;
-  transition-duration: 1ms;
-}
-
-.observer-show {
-  opacity: 1;
-}
-
-.observer-hide {
-  opacity: 0;
-}
-
-.tab-hide {
-  display: none;
-}
-
-.tab-show {
-  display: flex;
 }
