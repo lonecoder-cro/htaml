@@ -125,7 +125,7 @@ this will not overwrite the previous key but will get the result from the last k
 ```
 
 #### The :swap action
-Used to swap the request body with.
+Used to swap the contents of a element with the requests body.
 
 * Note: swapping the root html outter contents will not work, however the inner contents will be replaced instead
 
@@ -167,7 +167,7 @@ Can be use to hide a element on the DOM.
 
 #### The :proc action
 Use to process a DOM element with htaml attributes.
- 
+
 ##### Modifiers
 
 ##### Example:
@@ -254,7 +254,7 @@ Used to perform if statements and for loops.
 The if action is use to toggle elements on and off on the dom if the result is true
 
  * Note: **The if action automatically removes the element from the DOM and removes the dom:cloak attribute if added.**
- 
+
 ##### Example:
 
 ```html
@@ -286,7 +286,7 @@ id="projects__tabs-content">
 #### The :for action
 
 The for action allows you perform loops. This action **MUST**  be declared on any element that **MUST** contain root element/elements.
- 
+
 Note: **After each for loop, the h-dom:cloak attribute is remove off each element if added**.
 
  *  Tip: The index is supplied through a automatic variable "i"
@@ -369,7 +369,7 @@ Note: **\<h-script> tags can only contain one root level element. To get access 
           const list = [6,70,90,4,$value,7].map((i) => i > $value)
           return list;
      </h-script>
-     
+
      <div h-dom:cloak="cloak" h-run:for="num in list"
           <p h-dom:text="num, + index =,' ',num+i"></p>
       </div>
