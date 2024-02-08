@@ -1,47 +1,65 @@
-# HTAML Attributes Identifiers
+# What is HTAML?
 
-HTAML (Hypertext Advance Markup Language) is a...
+HTAML (Hypertext Advance Markup Language) is not a replacement for [HTMX](http://www.htmx.org) and "Javascript" but to give developers and idea of what HTML would be without "Javascript" by adding htaml attributes to dom elements.
+
+Note: **This project was inspired by [jscoding](https://github.com/tsoding/HTMLang)**.
 
 ## Tips
 
-* To prevent flickering of dom elements you can do as follow
+* To prevent flickering of htaml elements on page load you can do as follow
  ```html
-<!-- Use builting class for smooth transition to visible on page load -->
-<body class="htaml-fadein-active"></body>
+<style>
+. htaml-none {
+     display: none !important;
+  }
+</style>
+<body class="htaml-none"></body>
 
-<!-- To prevent flicker on page load use class htaml-cloak with a opacity of 0
-The class will be remove once the dom has be parsed -->
-<style> .htaml-cloak {opacity: 0}</style>
-<body class='htaml-cloak'></body>
+<!-- After the dom is parsed the .htaml-none class will be removed -->
 ```
-
-## h-/ht/hta/htaml-on
-Use to trigger events, all html elements work
-* modifiers= once | delay:2(s|m)
-
+* Instead of using htaml-attribute, it can also be used as h-,ht- or hta-.
 ```html
-<!-- Simple swap -->
-<button h-on:trigger="click"></button>
-
-<!-- usr presson once -->
-<button h-on:trigger="click once"></button>
-
-<!-- seconds or milliseconds -->
-<button h-on:trigger="click delay:3s"></button>
+<div h-dom:data="{}" ht-dom:data="{}" hta-dom:data="{}" htaml-dom:data="{}"></div>
 ```
 
-## h-/ht/hta/htaml-dom
-Use to modify the dom
+## htaml-on attribute
+Use to trigger events on a dom element.
 
-#### The flick action
-
-Similar to toggle but only allows one element to be visible at a time on the DOM
+#### The :trigger action
+Triggers an event on a element.
 
 ##### Modifiers:
-* attr: an attribute to target example: <div tab>
-* active: set the current flick element as active.
+
+* once: trigger the event once
+* delay: delay the trigger by seconds or milliseconds.
+
+##### Example:
+
 ```html
-<!-- Example with tabs -->
+<button h-on:trigger="click"></button>
+
+<!-- event only fires once -->
+<button h-on:trigger="click once"></button>
+
+<!-- delay in seconds or milliseconds -->
+<button h-on:trigger="click delay:3s"></button>
+<button h-on:trigger="click delay:3ms"></button>
+```
+
+## htaml-dom attribute
+Use to modify the dom.
+
+#### The :flick action
+
+Similar to the :toggle action but only allows one element to be visible at a time on the DOM
+
+##### Modifiers:
+* attr: an attribute to target.
+* active: set the current flick element as active by applying a class
+
+##### Example:
+```html
+<!--  tabs -->
  <ul>
     <li class="tabactive" h-on:trigger="click" h-dom:flick="#ui attr:tab active:.tabactive">Ui</li>
     <li h-on:trigger="click" h-dom:flick="#web attr:tab active:.tabactive">Web </li>
@@ -55,9 +73,11 @@ Similar to toggle but only allows one element to be visible at a time on the DOM
 <section id="shell"></section>
 
 ```
-#### The toggle action
+#### The :toggle action
 
 Used to toggle (on|off) an element on the DOM
+
+##### Example:
 
 ```html
 <section h-dom:data="{message:'If am been seen am been toggled'}">
@@ -66,10 +86,13 @@ Used to toggle (on|off) an element on the DOM
 </section>
 ```
 
-#### The data action
+#### The :data action
 
-Used to declare object like data
-Note: A key inside the data object should not have a number value
+Used to declare data and will also be evaluated as a javascript object.
+
+Note: **A key inside the data object should not have a number value**
+
+##### Example:
 
 ```html
 <header h-dom:data="{about:'About',skills:'Skills'}">
@@ -101,8 +124,7 @@ this will not overwrite the previous key but will get the result from the last k
 <!-- The innerText for the h2 will be Japholio -->
 ```
 
-#### The swap action
-
+#### The :swap action
 Used to swap the request body with.
 
 * Note: swapping the root html outter contents will not work, however the inner contents will be replaced instead
@@ -128,32 +150,34 @@ Transiton can also be applied after and before swapping occures
 <button h-dom:swap="html this transtion:beforeClassName,afterClassName">Press Me ToSwap</button>
 ```
 
-#### The cloak action
+#### The :cloak action
+Can be use to hide a element on the DOM.
 
-* Can be use to hide a element
-
+##### Example:
 ```html
 <!-- Set the opacity of a element to 0 -->
 <input  h-dom:cloak="cloak" type="text" name="firstName" placeholder="First Name" minlength="3">
 
-<!-- Un-render the element from the DOM using display block as none-->
+<!-- Un-render the element from the DOM -->
 <input  h-dom:cloak='none' type="text" name="firstName" placeholder="First Name" minlength="3">
 
 <!-- Hides the element on the DOM-->
 <input  h-dom:cloak='hidden' type="text" name="firstName" placeholder="First Name" minlength="3">
 ```
 
-#### The proc action
+#### The :proc action
+Use to process a DOM element with htaml attributes.
+ 
+##### Modifiers
 
- * Use to process a htaml element.
- * Note: modifiers can also be used
+##### Example:
 
 ```html
  <div id="projects__ideas">
 
     <button h-on:trigger="click" h-dom:proc="nextSibling onProcess:remove_old">Generate Random Users</button>
 
-    <div h-req:get="https://randomuser.me/api?results=10"
+    <div h-dom:ignore="this"  h-req:get="https://randomuser.me/api?results=10"
         h-req:out="random" h-run:for="person in random.results"
         id="projects__tabs-content">
         <div id="projects__project">
@@ -175,28 +199,33 @@ Transiton can also be applied after and before swapping occures
 ```
 
 #### The ignore action
+Any element with this action is ignored
 
- * Any element with this action is ignored
+##### Example:
 
 ```html
  <div h-dom:ignore="this"  id="projects__ideas"></div>
 ```
 
-#### The text action
+#### The :text action
+Used to set the innerText of a DOM element.
+
 ```html
-<parent h-dom:data={text:'Wagwaan'}>
-    <div h-dom:text='text'></div>
+<parent h-dom:data="{msg:'Wagwaan'}">
+    <div h-dom:text="msg,' ',it's me!!!"></div>
 </parent>
 ```
 
-## h-/ht/hta/htaml-req/areq
+## htaml-req/areq attribute
 Can be use to perform synchronous/asynchronous requesst
 
 * out - output result to a variable
 * config - used to configure the request
 * get - perform a GET request
 
-#### The req/areq action
+#### The :req/areq action
+
+##### Example:
 ```html
 <!-- synchronous requests -->
 <div h-req:get="https://api.github.com/users/"></div>
@@ -218,16 +247,15 @@ h-req:get="https://api.github.com/users/"></div>
 <!-- output response to a variable -->
 <div h-req:get="https://api.github.com/users/" h-req:out="myVar"></div>
 ```
-## h-/ht/hta/htaml-run
-  Actions
-  * for
-  * code
+## htaml-run attribute
+Used to perform if statements and for loops.
 
+#### The :if action
+The if action is use to toggle elements on and off on the dom if the result is true
 
-#### The if action
-
- * The if action is use to toggle elements on and off on the dom if the result is true
- * Note: a if action automatically removes the element from the dom and removes the dom:cloak attribute if add
+ * Note: **The if action automatically removes the element from the DOM and removes the dom:cloak attribute if added.**
+ 
+##### Example:
 
 ```html
 <div h-run:if="document.body.querySelector('div')"></div>
@@ -255,10 +283,12 @@ id="projects__tabs-content">
 </div>
 ```
 
-#### The for action
+#### The :for action
 
- * The for action allows you perform loops. This action MUST  be declared on any element that MUST contain root element/elements
- * Note: after each for loop, the dom:cloak attribute is remove off each element if added.
+The for action allows you perform loops. This action **MUST**  be declared on any element that **MUST** contain root element/elements.
+ 
+Note: **After each for loop, the h-dom:cloak attribute is remove off each element if added**.
+
  *  Tip: The index is supplied through a automatic variable "i"
 
 ```html
@@ -326,5 +356,23 @@ id="projects__tabs-content">
     </div>
 </div>
 ```
+## HScript Tag
+Used to declare javascript code.
 
-* Note: \<hscript> tags can only contain one root level element.
+Note: **\<h-script> tags can only contain one root level element. To get access to a variable you simple return it. You can also get access to a declare variable by using the $ symbol in front the variable name**.
+
+##### Example:
+
+```html
+<div h-dom:data="{value:8}">
+     <h-script>
+          const list = [6,70,90,4,$value,7].map((i) => i > $value)
+          return list;
+     </h-script>
+     
+     <div h-dom:cloak="cloak" h-run:for="num in list"
+          <p h-dom:text="num, + index =,' ',num+i"></p>
+      </div>
+
+</div>
+```
