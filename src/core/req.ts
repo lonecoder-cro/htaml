@@ -32,7 +32,7 @@ export async function htamlGet(url: string, async: boolean = false, config: any)
   });
 }
 
-export async function htamlPost(url: string, data: any, async: boolean = false, config: any) {
+export async function htamlPost(url: string, data: any, async: boolean = false, config: any): Promise<HTAMLElementResponse> {
   return new Promise((resolve, reject) => {
     let useFormData = false;
     const xhr = new XMLHttpRequest();
@@ -59,7 +59,7 @@ export async function htamlPost(url: string, data: any, async: boolean = false, 
           //end user can use data:transform to furthure manuplicate body
           _r.body = this.responseText;
         }
-      } else _r.body = this.status;
+      } else _r.status = this.status;
       return resolve(_r);
     };
 

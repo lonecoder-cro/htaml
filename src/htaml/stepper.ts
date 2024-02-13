@@ -63,7 +63,7 @@ export default class HTAMLElmStepper {
               data[textArea.name] = textArea.value;
             }
 
-            htamlElement.variables[htamlElement.root.tagName] = data;
+            htamlElement.request.data = data;
             await this.__stepThroughHTAMLElement(htamlElement);
           });
         } else element.addEventListener(_a[0], _lis);
@@ -76,7 +76,10 @@ export default class HTAMLElmStepper {
     //perform http request and return responses
     return new Promise(async (resolve, reject) => {
       const config = htamlElement.request.config;
-      if (attribute.action === "config") {
+      if (attribute.action === "data") {
+        let json: any = new HTAMLJParser(attribute.value);
+        htamlElement.request.data = await htamlEval(json);
+      } else if (attribute.action === "config") {
         attribute.value = attribute.value.replace(/\s/g, "");
         attribute.value = attribute.value.replace(/\'/g, '"');
         htamlElement.request.config = JSON.parse(attribute.value);
@@ -94,10 +97,10 @@ export default class HTAMLElmStepper {
           }
         }
       } else if (attribute.action === "post") {
-        const data = getVariable(htamlElement, "FORM");
+        const data = htamlElement.request.data;
         if (data) {
           if (attribute.id === "h-req") {
-            await htamlPost(attribute.value, data, false, config);
+            htamlElement.response = await htamlPost(attribute.value, data, false, config);
           } else if (attribute.id === "h-areq") {
             htamlPost(attribute.value, data, true, config).then((res: any) => {
               htamlElement.response = res;
@@ -105,10 +108,6 @@ export default class HTAMLElmStepper {
               this.__stepThroughHTAMLElement(htamlElement).catch(() => {});
             });
             return resolve(null);
-          }
-        } else {
-          //user probply used h-req:data
-          if (Object.keys(htamlElement.request.data)) {
           }
         }
       } else if (attribute.action === "out") {

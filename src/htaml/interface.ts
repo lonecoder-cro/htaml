@@ -12,7 +12,7 @@ export interface HTAMLElementResponse {
 
 export interface HTAMLElementRequests {
   config: {};
-  data: {};
+  data: any;
 }
 
 export interface HTAMLElement {
