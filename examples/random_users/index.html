@@ -53,8 +53,8 @@
                             Users</button>
 
                         <div h-dom:cloak="cloak" h-dom:ignore="this" h-req:get="https://randomuser.me/api?results=10"
-                            h-areq:out="random" h-run:if="this.response.status == 200 && random.results"
-                            h-run:for="person in random.results" id="projects__tabs-content">
+                            h-req:out="rusers" h-run:if="this.response.status == 200 && rusers.results"
+                            h-run:for="person in rusers.results" id="projects__tabs-content">
                             <div id="projects__project">
                                 <div id="projects__img">
                                     <img h-dom:src="person.picture.large" h-dom:alt="person.name.first" />

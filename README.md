@@ -132,12 +132,18 @@ this will not overwrite the previous key but will get the result from the last k
 #### The :swap action
 Used to swap the contents of a element with the requests body.
 
-* Note: swapping the root html outter contents will not work, however the inner contents will be replaced instead
+* Note: Swapping the root html outter contents will not work, however the inner contents will be replaced instead. If a title is found in the swap content it will be used as the title.
 
 ```html
 <!-- Simple swap -->
 <button h-on:trigger="click"
 h-req:get="http://127.0.0.1:5500/test/h-dom/swap.html"
+h-dom:swap="html">Press Me ToSwap
+</button>
+
+<!-- local swap from disk -->
+<button h-on:trigger="click"
+h-req:get="swap.html"
 h-dom:swap="html">Press Me ToSwap
 </button>
 

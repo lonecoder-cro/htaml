@@ -47,7 +47,7 @@ export default class HTAMLElmStepper {
           } else await this.__stepThroughHTAMLElement(htamlElement);
         };
 
-        if (element.tagName === "FORM") {
+        if (attribute.value == "submit" && element.tagName === "FORM") {
           element.addEventListener(attribute.value, async (_p: PointerEvent) => {
             _p.preventDefault();
             const _e = _p.target as HTMLFormElement;
@@ -63,7 +63,7 @@ export default class HTAMLElmStepper {
               data[textArea.name] = textArea.value;
             }
 
-            htamlElement.variables["__form__data"] = data;
+            htamlElement.variables[htamlElement.root.tagName] = data;
             await this.__stepThroughHTAMLElement(htamlElement);
           });
         } else element.addEventListener(_a[0], _lis);
@@ -72,10 +72,9 @@ export default class HTAMLElmStepper {
     });
   }
 
-  private async __handleReqAttribute(htamlElement: any, attribute: any) {
+  private async __handleReqAttribute(htamlElement: HTAMLElement, attribute: any) {
     //perform http request and return responses
     return new Promise(async (resolve, reject) => {
-      const html = htamlElement.element as HTMLElement;
       const config = htamlElement.request.config;
       if (attribute.action === "config") {
         attribute.value = attribute.value.replace(/\s/g, "");
@@ -95,7 +94,7 @@ export default class HTAMLElmStepper {
           }
         }
       } else if (attribute.action === "post") {
-        const data = getVariable(htamlElement, "__form__data");
+        const data = getVariable(htamlElement, "FORM");
         if (data) {
           if (attribute.id === "h-req") {
             await htamlPost(attribute.value, data, false, config);
@@ -107,11 +106,14 @@ export default class HTAMLElmStepper {
             });
             return resolve(null);
           }
+        } else {
+          //user probply used h-req:data
+          if (Object.keys(htamlElement.request.data)) {
+          }
         }
       } else if (attribute.action === "out") {
         const variable = attribute.value;
         htamlElement.variables[variable] = htamlElement.response.body;
-        htamlElement.response.body = "";
       }
       return resolve(htamlElement);
     });

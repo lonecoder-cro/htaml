@@ -113,7 +113,7 @@ export default class HTAMLParser {
       id: id,
       root: element,
       parent: null,
-      request: { config: {} },
+      request: { config: {}, data: {} },
       response: { body: "", content: "", status: -1 },
       variables: {},
       childrens: [],
