@@ -4,6 +4,9 @@ HTAML (Hypertext Advance Markup Language) is not a replacement for [HTMX](http:/
 
 Note: **This project was inspired by [jscoding](https://github.com/tsoding/HTMLang)**.
 
+# Usage
+If your lazy just download the htaml.js file from the dist folder.
+
 ## Tips
 
 * To prevent flickering of htaml elements on page load you can do as follow

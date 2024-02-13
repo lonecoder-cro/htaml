@@ -85,7 +85,7 @@ module.exports = {
 
             onDetected({ paths, compilation }) { compilation.errors.push(new Error(paths.join(' -> '))) },
         }),
-        new BundleAnalyzerPlugin({ analyzerMode: 'disabled', generateStatsFile: true })
+        new BundleAnalyzerPlugin({ analyzerMode: 'disabled', generateStatsFile: false })
     ],
     watchOptions: {
         // for some systems, watching many files can result in a lot of CPU or memory usage
