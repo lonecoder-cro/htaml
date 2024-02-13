@@ -2,7 +2,9 @@
 
 HTAML (Hypertext Advance Markup Language) is not a replacement for [HTMX](http://www.htmx.org) and "Javascript" but to give developers and idea of what HTML would be without "Javascript" by adding htaml attributes to dom elements.
 
-Note: **This project was inspired by [jscoding](https://github.com/tsoding/HTMLang)**.
+**This project was inspired by [jscoding](https://github.com/tsoding/HTMLang)**.
+
+Note: **Due to school and other projects that or not currently public on my github, the develepment process of this project will be slow.**
 
 # Usage
 If your lazy just download the htaml.js file from the dist folder.
