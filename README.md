@@ -49,22 +49,22 @@ Triggers an event on a element.
 ## htaml-dom attribute
 Use to modify the dom.
 
-#### The :flick action
+#### The :switch action
 
 Similar to the :toggle action but only allows one element to be visible at a time on the DOM
 
 ##### Modifiers:
 * attr: an attribute to target.
-* active: set the current flick element as active by applying a class
+* active: set the current switch element as active by applying a class
 
 ##### Example:
 ```html
 <!--  tabs -->
  <ul>
-    <li class="tabactive" h-on:trigger="click" h-dom:flick="#ui attr:tab active:.tabactive">Ui</li>
-    <li h-on:trigger="click" h-dom:flick="#web attr:tab active:.tabactive">Web </li>
-    <li h-on:trigger="click" h-dom:flick="#bots attr:tab active:.tabactive">Bots</li>
-    <li h-on:trigger="click" h-dom:flick="#shell attr:tab active:.tabactive">Shell</li>
+    <li class="tabactive" h-on:trigger="click" h-dom:switch="#ui attr:tab active:.tabactive">Ui</li>
+    <li h-on:trigger="click" h-dom:switch="#web attr:tab active:.tabactive">Web </li>
+    <li h-on:trigger="click" h-dom:switch="#bots attr:tab active:.tabactive">Bots</li>
+    <li h-on:trigger="click" h-dom:switch="#shell attr:tab active:.tabactive">Shell</li>
 </ul>
 
 <section id="ui"></section>

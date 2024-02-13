@@ -223,7 +223,7 @@ export default class HTAMLElmStepper {
       let variables: Array<string> = [];
 
       switch (attribute.action) {
-        case "flick":
+        case "switch":
           //similar to toggle but only allows ane element on at a time
           values = value.match(/[(#|\w+)|(\w+:\.|#|\w+)]+/gi);
           target = document.querySelector(values[0]) as HTMLElement;
@@ -369,6 +369,13 @@ export default class HTAMLElmStepper {
             if (value.includes("transition")) {
               _tn = value.match(/transition:([\w-]*)/);
               if (_tn.length == 2) _.classList.remove(_tn[1]);
+            }
+
+            //check for title tag and override current
+            const hasTitle = htamlElement.response.content.match(/<title>(\w*)<\/title>/i);
+            if (hasTitle && hasTitle.length > 1) {
+              htamlElement.response.content = htamlElement.response.content.replace(new RegExp(hasTitle[0]), "");
+              document.title = hasTitle[1];
             }
 
             if ((value.includes("outter") || value.includes("this")) && _.tagName !== "HTML") {
