@@ -135,32 +135,32 @@
 
         <section id="ui" tab>
             <h-script>
-                                let uis = [
-                                {
-                                'name': 'CroSafe',
-                                'icon': './assets/icon/radar.png',
-                                'link_text': 'View Code',
-                                'link': 'https://github.com/cro-technologies/cro_safe',
-                                'description': 'A password manager. written in python.',
-                                },
-                                {
-                                'name': 'CroLoc',
-                                'icon': './assets/icon/radar.png',
-                                'link_text': 'View Code',
-                                'link': 'https://github.com/cro-technologies/cro_loc',
-                                'description': 'A password manager, written in javafx.',
-                                },
-                                {
-                                'name': 'CroPy2Exe',
-                                'icon': './assets/icon/radar.png',
-                                'link_text': 'View Code',
-                                'link': 'https://github.com/cro-technologies/cro_py2exe',
-                                'description': 'A helpful program to generate a exe from a python file.',
-                                }
-                                ];
+                let uis = [
+                {
+                'name': 'CroSafe',
+                'icon': './assets/icon/radar.png',
+                'link_text': 'View Code',
+                'link': 'https://github.com/cro-technologies/cro_safe',
+                'description': 'A password manager. written in python.',
+                },
+                {
+                'name': 'CroLoc',
+                'icon': './assets/icon/radar.png',
+                'link_text': 'View Code',
+                'link': 'https://github.com/cro-technologies/cro_loc',
+                'description': 'A password manager, written in javafx.',
+                },
+                {
+                'name': 'CroPy2Exe',
+                'icon': './assets/icon/radar.png',
+                'link_text': 'View Code',
+                'link': 'https://github.com/cro-technologies/cro_py2exe',
+                'description': 'A helpful program to generate a exe from a python file.',
+                }
+                ];
 
-                                return uis;
-                            </h-script>
+                return uis;
+            </h-script>
 
             <div h-run:for="ui in uis" id="projects__tabs-content">
                 <div id="projects__project">
@@ -181,34 +181,34 @@
 
         <section id="web" h-dom:cloak="none" tab>
             <h-script>
-                                let webs = [
-                                {
-                                'name': 'Fassion Breeze',
-                                'icon': './assets/icon/radar.png',
-                                'link_text': 'View Site',
-                                'link': 'https://fassionbreezestagesite.azurewebsites.net/men',
-                                'description': 'A e-commerce service which offers a variety of clothing. Note currently
-                                in stageing mode.',
-                                },
-                                {
-                                'name': 'Fassion Breeze CMS',
-                                'icon': './assets/icon/radar.png',
-                                'link_text': 'View Site',
-                                'link': 'https://fassionbreezestagecms.azurewebsites.net',
-                                'description': 'A custom CMS which manages Fassion Breeze front end. Note currently in
-                                stageing mode.',
-                                },
-                                {
-                                'name': 'Japholio',
-                                'icon': './assets/icon/radar.png',
-                                'link_text': 'View Code',
-                                'link': 'https://github.com/lonecoder-cro/japholio',
-                                'description': 'This current website, built with htaml.js and flask.',
-                                }
-                                ];
+                let webs = [
+                    {
+                    'name': 'Fassion Breeze',
+                    'icon': './assets/icon/radar.png',
+                    'link_text': 'View Site',
+                    'link': 'https://fassionbreezestagesite.azurewebsites.net/men',
+                    'description': 'A e-commerce service which offers a variety of clothing. Note currently
+                    in stageing mode.',
+                    },
+                    {
+                    'name': 'Fassion Breeze CMS',
+                    'icon': './assets/icon/radar.png',
+                    'link_text': 'View Site',
+                    'link': 'https://fassionbreezestagecms.azurewebsites.net',
+                    'description': 'A custom CMS which manages Fassion Breeze front end. Note currently in
+                    stageing mode.',
+                    },
+                    {
+                    'name': 'Japholio',
+                    'icon': './assets/icon/radar.png',
+                    'link_text': 'View Code',
+                    'link': 'https://github.com/lonecoder-cro/japholio',
+                    'description': 'This current website, built with htaml.js and flask.',
+                    }
+                ];
 
-                                return webs;
-                            </h-script>
+                return webs;
+            </h-script>
 
             <div h-run:for="web in webs" id="projects__tabs-content">
                 <div id="projects__project">
