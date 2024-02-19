@@ -6,28 +6,18 @@ const htamlFade = () => {
     pointer-events:none;
 }
 
-.htaml-show{
+.htaml-visible{
     opacity:1 !important;
     pointer-events:all;
 }
 
-.htaml-none{
+.htaml-hide{
     display:none !important;
     pointer-events:none;
 }
 
-.htaml-block{
+.htaml-show{
     display:block !important;
-    pointer-events:all;
-}
-
-.htaml-hidden{
-    visibility: hidden !important;
-    pointer-events:none;
-}
-
-.htaml-visible{
-    visibility: visible !important;
     pointer-events:all;
 }
 

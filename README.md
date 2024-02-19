@@ -10,17 +10,18 @@ Note: **Due to school and other projects that or not currently public on my gith
 If your lazy just download the htaml.js file from the dist folder.
 
 ## Tips
+* The fist argument for each htaml action except the bindto can be a h-dom:id value or a selector. The h-dom:id is faster, the element is already parsed where as a selector the element needs to be parsed first. The bindto action uses the h-dom:id and a input selector
 
 * To prevent flickering of htaml elements on page load you can do as follow
  ```html
 <style>
-. htaml-none {
+. htaml-hide {
      display: none !important;
   }
 </style>
-<body class="htaml-none"></body>
+<body class="htaml-hide"></body>
 
-<!-- After the dom is parsed the .htaml-none class will be removed -->
+<!-- After the dom is parsed the .htaml-hide class will be removed -->
 ```
 * Instead of using htaml-attribute, it can also be used as h-,ht- or hta-.
 ```html
@@ -38,9 +39,44 @@ Triggers an event on a element.
 * once: trigger the event once
 * delay: delay the trigger by seconds or milliseconds.
 
-##### Example:
+##### Examples:
+
+Here is a perfect example submititng a form using :trigger action
+* Note: For form submission to work, h-dom:id="form" should be on the form tag.
+```html
+<form class="form" h-dom:id="form" h-dom:ignore="this" h-req:post="https://dummyjson.com/users/add">
+    <div class="form--header">
+        <h1>Register</h1>
+    </div>
+    <div class="form--content form--content--single">
+        <div id="form__one">
+            <div class="form--group">
+                <input type="text" name="firstName" placeholder="First Name"  minlength="3">
+            </div>
+            <div class="form--group">
+                <input  type="text" name="lastName" placeholder="Last Name" minlength="3">
+            </div>
+            <div class="form--group">
+                <input name="email" type="email" placeholder="Email Address">
+            </div>
+            <div class="form--group">
+                <input type="password" name="password" placeholder="Password" minlength="6">
+            </div>
+        </div>
+
+    </div>
+    <div class="form--footer">
+        <button h-on:trigger="submit">Register</button>
+        <button h-on:trigger="click once" h-req:get="apost.html" h-dom:swap="html inner">try
+            async request</button>
+    </div>
+</form>
+```
+
+##### Buttons
 
 ```html
+
 <button h-on:trigger="click"></button>
 
 <!-- event only fires once -->
@@ -53,6 +89,19 @@ Triggers an event on a element.
 
 ## htaml-dom attribute
 Use to modify the dom.
+
+#### The :bindto action
+Use to bind to a input element.
+
+```html
+<!-- element to bind to, when the value of this element changes, the changes will reflect on the other two elements -->
+<input h-dom:id="domIdCanBeUsed" h-on:trigger="keyup"  type="text" name="firstName" placeholder="First Name"  minlength="3">
+
+<!-- binding using name attribute -->
+<input h-dom:bindto="firstName" type="text" name="lastName" placeholder="Last Name" minlength="3">
+<!--  or using h-dom:id -->
+<input h-dom:bindto="domIdCanBeUsed" type="text" name="lastName" placeholder="Last Name" minlength="3">
+```
 
 #### The :switch action
 
@@ -134,31 +183,35 @@ Used to swap the contents of a element with the requests body.
 
 * Note: Swapping the root html outter contents will not work, however the inner contents will be replaced instead. If a title is found in the swap content it will be used as the title.
 
+##### Modifiers:
+
+default:
+  * replace: Placement of the swap conntent.The value van be (outter|inner|this) where this is the current element.
+  * transition: Transiton can also be applied after and before swapping occures.
+
+transition:
+
 ```html
 <!-- Simple swap -->
-<button h-on:trigger="click"
-h-req:get="http://127.0.0.1:5500/test/h-dom/swap.html"
-h-dom:swap="html">Press Me ToSwap
+<button
+    h-on:trigger="click"
+    h-req:get="http://127.0.0.1:5500/test/h-dom/swap.html"
+    h-dom:swap="html replace:outter">Press Me To Swap
 </button>
 
 <!-- local swap from disk -->
-<button h-on:trigger="click"
-h-req:get="swap.html"
-h-dom:swap="html">Press Me ToSwap
+<button
+    h-on:trigger="click"
+    h-req:get="swap.html"
+    h-dom:swap="html replace:inner">Press Me To Swap
 </button>
 
-<!--
-You can also specify where the request content can be swapped by providing one of the following after the swap action.
-    outter
-    inner
-    this
--->
-<button h-dom:swap="html this">Press Me ToSwap</button>
-
-<!--
-Transiton can also be applied after and before swapping occures
--->
-<button h-dom:swap="html this transtion:beforeClassName,afterClassName">Press Me ToSwap</button>
+<!-- with transitons-->
+<button
+    h-on:trigger="click"
+    h-req:get="swap.html"
+    h-dom:swap="html replace:this transtion:beforeClassName,afterClassName">Press Me To Swap
+</button>
 ```
 
 #### The :cloak action
@@ -179,43 +232,53 @@ Can be use to hide a element on the DOM.
 #### The :proc action
 Use to process a DOM element with htaml attributes.
 
-##### Modifiers
+##### Modifiers:
+
+on_process:
+  * scroll: scroll to the bottom of the content.
+  * replace: replace the process element with a clone version of itself.
 
 ##### Example:
 
 ```html
- <div id="projects__ideas">
+ <button
+    h-on:trigger="click delay:500ms"
+    h-dom:proc="users on_process:replace">Generate Random Users
+</button>
 
-    <button h-on:trigger="click" h-dom:proc="nextSibling onProcess:remove_old">Generate Random Users</button>
+<div h-dom:id="users" h-dom:cloak="cloak" h-dom:ignore="all"
+    h-req:get="https://randomuser.me/api?results=10" h-req:out="rusers"
+    h-run:if="this.response.status == 200 && rusers.results"
+    h-run:for="person in rusers.results" id="projects__tabs-content">
 
-    <div h-dom:ignore="this"  h-req:get="https://randomuser.me/api?results=10"
-        h-req:out="random" h-run:for="person in random.results"
-        id="projects__tabs-content">
-        <div id="projects__project">
-            <div id="projects__img">
-                <img h-dom:src="person.picture.large" h-dom:alt="person.name.first" />
+    <div id="projects__project">
+        <div id="projects__img">
+            <img h-dom:src="person.picture.large" h-dom:alt="person.name.first" />
+        </div>
+        <div id="projects__info">
+            <h3 h-dom:text="person.name.title,'.',person.name.first,&#32,person.name.last"></h3>
+            <div>
+                <p h-dom:text="person.location.timezone.description"></p>
             </div>
-            <div id="projects__info">
-                <h3 h-dom:text="person.name.title,person.name.first,person.name.last"></h3>
-                <div>
-                    <p h-dom:text="person.location.timezone.description"></p>
-                </div>
-            </div>
-            <div id="projects__link"><a h-dom:href="person.picture.large" target="_blank"
-                    h-dom:text="person.name.first"></a>
-            </div>
+        </div>
+        <div id="projects__link"><a h-dom:href="person.picture.large" target="_blank"
+                h-dom:text="person.name.first"></a>
         </div>
     </div>
 </div>
 ```
 
 #### The ignore action
-Any element with this action is ignored
+Tells the htaml stepper to skip proccessing of this element or childerns.
 
 ##### Example:
 
 ```html
- <div h-dom:ignore="this"  id="projects__ideas"></div>
+<!-- ignores the current element -->
+ <div h-dom:ignore="this"  id="projects__ideas"> </div>
+
+ <!-- ignores the current element and its childrens-->
+<div h-dom:ignore="all"  id="projects__ideas"></div>
 ```
 
 #### The :text action

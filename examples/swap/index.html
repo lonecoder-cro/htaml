@@ -10,13 +10,13 @@
         <title>Swap</title>
 
         <style>
-            .htaml-none {
+            .htaml-hide {
                 display: none !important;
             }
         </style>
     </head>
 
-    <body class="htaml-none htaml-fadein-active">
+    <body class="htaml-hide htaml-fadein-active">
         <header
             h-dom:data="{about: 'About', skills: 'Skills',  services:'Services',projects:'Projects',contact:'Contact',j:'Japho',l:'lio'}">
             <div>
@@ -44,7 +44,7 @@
                         <h2>Free Lancer</h2>
                         <p>With knowlegde of Web Development and Software Development, I offer the best projects
                             resulting in quality.</p>
-                        <button h-on:trigger="click once" h-req:get="swap.html" h-dom:swap="#swap outter">Press
+                        <button h-on:trigger="click once" h-req:get="swap.html" h-dom:swap="swap outter">Press
                             Me To
                             Swap</button>
                         <div>
@@ -61,7 +61,7 @@
                     </div>
                 </section>
 
-                <div id="swap" h-dom:cloak="none"></div>
+                <div h-dom:id="swap" h-dom:cloak="none"></div>
 
             </section>
         </main>

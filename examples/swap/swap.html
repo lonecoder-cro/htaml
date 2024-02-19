@@ -123,17 +123,17 @@
     <div id="projects__ideas">
         <div id="projects__tabs">
             <ul>
-                <li class="tabactive" h-on:trigger="click" h-dom:switch="#ui attr:tab active:.tabactive">
+                <li class="tabactive" h-on:trigger="click" h-dom:switch="ui attr:tab active:.tabactive">
                     Ui</li>
-                <li h-on:trigger="click" h-dom:switch="#web attr:tab active:.tabactive">Web </li>
-                <li h-on:trigger="click" h-dom:switch="#bots attr:tab active:.tabactive">Bots</li>
-                <li h-on:trigger="click" h-dom:switch="#shell attr:tab active:.tabactive">Shell</li>
-                <li h-on:trigger="click" h-dom:switch="#devprojects attr:tab active:.tabactive">Projects
+                <li h-on:trigger="click" h-dom:switch="web attr:tab active:.tabactive">Web </li>
+                <li h-on:trigger="click" h-dom:switch="bots attr:tab active:.tabactive">Bots</li>
+                <li h-on:trigger="click" h-dom:switch="shell attr:tab active:.tabactive">Shell</li>
+                <li h-on:trigger="click" h-dom:switch="devprojects attr:tab active:.tabactive">Projects
                 </li>
             </ul>
         </div>
 
-        <section id="ui" tab>
+        <section h-dom:id="ui" tab>
             <h-script>
                 let uis = [
                 {
@@ -177,9 +177,11 @@
                     </div>
                 </div>
             </div>
+
+
         </section>
 
-        <section id="web" h-dom:cloak="none" tab>
+        <section h-dom:id="web" h-dom:cloak="hide" tab>
             <h-script>
                 let webs = [
                     {
@@ -227,7 +229,7 @@
             </div>
         </section>
 
-        <section id="bots" h-dom:cloak="none" tab>
+        <section h-dom:id="bots" h-dom:cloak="hide" tab>
             <h-script>
                                 let bots = [
                                 {
@@ -283,57 +285,57 @@
             </div>
         </section>
 
-        <section id="shell" h-dom:cloak="none" tab>
+        <section h-dom:id="shell" h-dom:cloak="hide" tab>
             <h-script>
-                                let shells = [
-                                {
-                                'name': 'CroSteg',
-                                'icon': './assets/icon/radar.png',
-                                'link_text': 'View Code',
-                                'link': 'https://github.com/cro-technologies/cro_steg',
-                                'description': 'A tool which allows you to perform steganography.',
-                                },
-                                {
-                                'name': 'CroCord',
-                                'icon': './assets/icon/radar.png',
-                                'link_text': 'View Code',
-                                'link': 'https://github.com/cro-technologies/cro_cord',
-                                'description': 'A tool which allows you to look up coordinates.',
-                                },
-                                {
-                                'name': 'CroExtract',
-                                'icon': './assets/icon/radar.png',
-                                'link_text': 'View Code',
-                                'link': 'https://github.com/cro-technologies/cro_extract',
-                                'description': 'A tool which allows you to extract emails, phone numbers,image metadata
-                                and stored wifi passwords.A
-                                url can also be used to extract emails and phone numbers.',
-                                },
-                                {
-                                'name': 'CroSimper',
-                                'icon': './assets/icon/radar.png',
-                                'link_text': 'View Code',
-                                'link': 'https://github.com/cro-technologies/cro_simper',
-                                'description': 'A tool which allows you to look up your fav pornstar',
-                                },
-                                {
-                                'name': 'CroNet',
-                                'icon': './assets/icon/radar.png',
-                                'link_text': 'View Code',
-                                'link': 'https://github.com/cro-technologies/cro_net',
-                                'description': 'A basic network scanner which scans for open ports.',
-                                },
-                                {
-                                'name': 'CPass',
-                                'icon': './assets/icon/radar.png',
-                                'link_text': 'View Code',
-                                'link': 'https://github.com/cro-technologies/cro_pass',
-                                'description': 'A random password generater that i used for all my passwords.',
-                                }
-                                ];
+                let shells = [
+                {
+                'name': 'CroSteg',
+                'icon': './assets/icon/radar.png',
+                'link_text': 'View Code',
+                'link': 'https://github.com/cro-technologies/cro_steg',
+                'description': 'A tool which allows you to perform steganography.',
+                },
+                {
+                'name': 'CroCord',
+                'icon': './assets/icon/radar.png',
+                'link_text': 'View Code',
+                'link': 'https://github.com/cro-technologies/cro_cord',
+                'description': 'A tool which allows you to look up coordinates.',
+                },
+                {
+                'name': 'CroExtract',
+                'icon': './assets/icon/radar.png',
+                'link_text': 'View Code',
+                'link': 'https://github.com/cro-technologies/cro_extract',
+                'description': 'A tool which allows you to extract emails, phone numbers,image metadata
+                and stored wifi passwords.A
+                url can also be used to extract emails and phone numbers.',
+                },
+                {
+                'name': 'CroSimper',
+                'icon': './assets/icon/radar.png',
+                'link_text': 'View Code',
+                'link': 'https://github.com/cro-technologies/cro_simper',
+                'description': 'A tool which allows you to look up your fav pornstar',
+                },
+                {
+                'name': 'CroNet',
+                'icon': './assets/icon/radar.png',
+                'link_text': 'View Code',
+                'link': 'https://github.com/cro-technologies/cro_net',
+                'description': 'A basic network scanner which scans for open ports.',
+                },
+                {
+                'name': 'CPass',
+                'icon': './assets/icon/radar.png',
+                'link_text': 'View Code',
+                'link': 'https://github.com/cro-technologies/cro_pass',
+                'description': 'A random password generater that i used for all my passwords.',
+                }
+                ];
 
-                                return shells;
-                            </h-script>
+                return shells;
+            </h-script>
 
             <div h-run:for="shell in shells" id="projects__tabs-content">
                 <div id="projects__project">
@@ -353,7 +355,7 @@
             </div>
         </section>
 
-        <section id="devprojects" h-dom:cloak="none" tab>
+        <section h-dom:id="devprojects" h-dom:cloak="hide" tab>
             <h-script>
                 let devprojects = [
                 {
