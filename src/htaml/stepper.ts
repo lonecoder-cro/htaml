@@ -2,7 +2,7 @@ import { cloneHTAMLNode, removeHTAMLAttributeFromHTAMLElement, htamlEvalHScript,
 import { htamlGet, htamlPost } from "../core/req"
 import { HTAMLElement } from "./interface"
 import HTAMLJParser from "../htaml_jparser"
-import { parseElement, parseElementChildrens } from "./parser"
+import { parseElement } from "./parser"
 import CONFIG from "../config"
 
 async function handleOnAttribute(htamlElement: any, attribute: any) {
@@ -363,17 +363,17 @@ async function handleDomAttribute(htamlElement: HTAMLElement, attribute: any): P
             switch (modifier[0]) {
               case 'replace':
                 value = modifier[1]
-                if (value === 'outter' && target.tagName !== "HTML")
+                if (value === 'outter' && target.tagName !== 'HTML')
                   target.outerHTML = html
-                else if (value === 'outter' && target.tagName === "HTML")
+                else if (value === 'outter' && target.tagName === 'HTML')
                   target.innerHTML = html
                 else if (value === 'inner')
                   target.innerHTML = html
                 break
             }
           }
+        } else target.innerHTML = html
 
-        } else target.outerHTML = html
         await stepThroughHTAMLElements([(await parseElement(document.body))])
         break
       case "cloak":
