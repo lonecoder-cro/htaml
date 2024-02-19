@@ -4,7 +4,6 @@ const CONFIG = {
     DISABLED_ELEMENTS: ['FORM', 'BUTTON', 'INPUT'],
     MODIFIERS_REGEX: /([a-zA-Z_]+:[a-zA-Z_]+)/gi,
     HTAML_REGEX: /(h|ht|hta|htaml)-(\w*):(\w*)/,
-    H_SCRIPT: 'HSCRIPT'
-
+    HSCRIPT: 'HSCRIPT'
 }
 export default CONFIG

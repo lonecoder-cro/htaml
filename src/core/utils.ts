@@ -103,7 +103,7 @@ export function replaceVariable(value: string, htamlElement: HTAMLElement, optio
         else value = value.replace(new RegExp(variable, "g").source, data)
       }
     }
-  } else if (htamlElement.root.tagName !== CONFIG.H_SCRIPT) {
+  } else if (htamlElement.root.tagName !== CONFIG.HSCRIPT) {
     const variables: any | Array<string> = value.match(/[([a-zA-Z_)|(a-zA-Z_\.)]+/gi)
 
     const _ = (vars: any, variableData: any) => {

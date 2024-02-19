@@ -48,7 +48,7 @@ export function parseElement(element: HTMLElement): HTAMLElement | null {
     if (domId) _element[id].parent = _element[Number(domId)]
   }
 
-  if (_element[id].root.tagName === CONFIG.H_SCRIPT) _element[id] = parseHScriptElement(_element[id])
+  if (_element[id].root.tagName === CONFIG.HSCRIPT) _element[id] = parseHScriptElement(_element[id])
   if (CONFIG.DISABLED_ELEMENTS.includes(_element[id].root.tagName)) _element[id] = disableEvents(_element[id])
   if (_element[id].root.children.length) _element[id].childrens = parseElementChildrens(_element[id].root.children)
 
