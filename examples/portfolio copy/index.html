@@ -53,7 +53,7 @@
                     <div h-run:for="skill in skills" id="skills__cards">
                         <div id="skills__card">
                             <h3 h-dom:text="skill.name"></h3>
-                            <ul h-run:for="name in skill.skills">
+                            <ul h-run:for="name in skill.skills;x=index">
                                 <li h-dom:text="name"></li>
                             </ul>
                         </div>

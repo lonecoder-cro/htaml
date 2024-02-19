@@ -367,71 +367,53 @@ Note: **After each for loop, the h-dom:cloak attribute is remove off each elemen
 
  *  Tip: The index is supplied through a automatic variable "i"
 
+##### Examples:
+Looping over a list.
 ```html
-<h-script>
-    const skills = [
-        {
-        'name': 'Mobile App Skills',
-        'skills': [
-            "Flutter",
-            'NativaScript',
-            'Android Studio',
-            ],
-        },
-        {
-        'name': 'Frontend Skills',
-        'skills': [
-            'CSS3',
-            'HTML5',
-            'Angular+',
-            'Typescript',
-            'Javascript'
-            ],
-        },
-        {
-        'name': 'Backend Skills',
-        'skills': [
-            'Flask',
-            'NodeJs',
-            'Express',
-            ],
-        },
+<section id="skills" class="observer">
+    <h-script>
+        const skills = [
             {
-        'name': 'Software/Hardware Skills',
-        'skills': [
-            'C',
-            'C#',
-            'Go',
-            'Vbs',
-            "AvrC",
-            'Batch',
-            'Python',
-            'Kotlin\Java',
-            ],
-        },
-        {
-        'name': 'Essentials Skills',
-        'skills': [
-            'Azure',
-            'Github',
-            'Docker',
-            'MongoDb',
-            'Lucidchart'
-            ],
-        }
-    ];
-    return skills;
-</h-script>
+                'name': 'Mobile App Skills',
+                'skills': [
+                "PWA's",
+                'NativaScript',
+                'Android Studio'
+                ],
+            }
+        ];
+        return skills;
+    </h-script>
 
-<div h-dom:cloak="cloak" h-run:for="skill in skills" id="skills__cards">
-    <div h-run:if="i > 1 && i < 5" id="skills__card">
-        <h3 h-dom:text="skill.name"></h3>
-        <ul h-run:for="name in skill.skills">
-            <li h-dom:text="name"></li>
-        </ul>
+    <div h-run:for="skill in skills" id="skills__cards">
+        <div id="skills__card">
+            <h3 h-dom:text="skill.name"></h3>
+            <ul h-run:for="name in skill.skills">
+                <li h-dom:text="name"></li>
+            </ul>
+        </div>
+    </div>
+</section>
+```
+
+Getting acces to the index.
+```html
+
+<!-- through automatice variable called i -->
+<div h-run:for="skill in skills" id="skills__cards">
+    <div id="skills__card">
+        <h3 h-dom:text="skill.skills[i].name"></h3>
+    </div>
+</div>
+
+<!-- or defined your own -->
+<div h-run:for="skill in skills;x=index" id="skills__cards">
+    <div id="skills__card">
+        <h3 h-dom:text="skill.skills[x].name"></h3>
     </div>
 </div>
 ```
+
 ## HScript Tag
 Used to declare javascript code.
 
