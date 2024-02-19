@@ -44,7 +44,7 @@ declare global {
 
     createEvent(document, "htaml_init", args)
 
-    const elementsObject: any = await parseDomElements(document.body.children)
+    const elementsObject: any = await parseDomElements([document.body] as any)
 
     document.body.classList.remove("htaml-hide")
 

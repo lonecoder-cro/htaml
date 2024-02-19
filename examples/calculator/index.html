@@ -47,6 +47,10 @@
                 gap: 10px;
             }
 
+            .calculator-keys .equal {
+                grid-column: span 4;
+            }
+
             .calculator-keys button {
                 padding: 15px 0;
                 border: none;
@@ -100,6 +104,7 @@
                 <button value="3">3</button>
                 <button value="0">0</button>
                 <button value=".">.</button>
+                <button class="clear" value="C">C</button>
                 <button class="equal" value="=">=</button> -->
             </div>
 
@@ -125,6 +130,7 @@
                     {'class':'','value':'3'},
                     {'class':'','value':'0'},
                     {'class':'','value':'.'},
+                    {'class':'clear','value':'C'},
                     {'class':'equal','value':'='}
                 ];
 

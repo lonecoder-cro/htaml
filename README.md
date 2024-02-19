@@ -241,6 +241,8 @@ on_process:
 ##### Example:
 
 ```html
+ <button h-dom:proc="users">Generate Random Users</button>
+
  <button
     h-on:trigger="click delay:500ms"
     h-dom:proc="users on_process:replace">Generate Random Users

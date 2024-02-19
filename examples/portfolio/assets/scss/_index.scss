@@ -1,0 +1,702 @@
+header {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  //position: fixed;
+  border: solid coral;
+  border-width: 0 0 5px 0;
+  @include set-background-color(rgba($primary-color, 0.6));
+
+  @include smarthphone__landscape {
+    justify-content: space-between;
+  }
+
+  @include tablet__landscape {
+    justify-content: space-between;
+  }
+
+  @include tabletXL {
+    justify-content: space-between;
+  }
+
+  @include tabletXL__landscape {
+    justify-content: space-between;
+  }
+
+  @include desktop {
+    justify-content: space-between;
+  }
+
+  div:first-child {
+    a {
+      color: white;
+      text-decoration: none;
+      h2 {
+        span {
+          color: coral;
+          //color: $secondary-color;
+          //font-weight: 100px;
+        }
+      }
+    }
+  }
+
+  div:nth-of-type(2) {
+    width: 400px;
+
+    @include smarthphone {
+      display: none;
+    }
+
+    @include smarthphone__landscape {
+      display: block;
+    }
+
+    @include tablet__landscape {
+      display: block;
+    }
+
+    @include tabletXL {
+      display: block;
+    }
+
+    @include tabletXL__landscape {
+      display: block;
+    }
+
+    @include desktop {
+      display: block;
+    }
+
+    a {
+      color: white;
+      padding: 10px;
+      //background-color: pink;
+    }
+  }
+}
+
+main {
+  // flex-wrap: wrap;
+  #info {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    display: flex;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0.6em 0.3em 0.6em 0.3em rgba($secondary-color, 0.3);
+    @include set-background-color($primary-color);
+
+    @include smarthphone__landscape {
+      flex-direction: row;
+    }
+
+    @include tablet {
+      flex-direction: row;
+    }
+
+    @include tablet__landscape {
+      flex-direction: row;
+    }
+
+    @include tabletXL {
+      flex-direction: row;
+      height: 600px;
+    }
+    @include tabletXL__landscape {
+      flex-direction: row;
+      height: 600px;
+    }
+
+    @include desktop {
+      flex-direction: row;
+      height: 600px;
+    }
+
+    div:first-child {
+      @include set-background-color($secondary-color);
+      margin: 1em;
+    }
+
+    &__doc {
+      padding: 1em;
+
+      h2:nth-of-type(1) {
+        span {
+          color: coral;
+        }
+      }
+
+      h1,
+      p {
+        color: white;
+        word-wrap: break-word;
+      }
+
+      h1 {
+        font-size: 3em;
+        margin-top: 0.4em;
+        margin-bottom: 0.4em;
+      }
+
+      h2:nth-of-type(2) {
+        margin: 0.6em 0 0.6em 0;
+      }
+
+      p {
+        font-weight: 600;
+      }
+
+      button {
+        margin: 0.8em 0 0.6em 0;
+        @include set-background-color($background-color);
+        cursor: pointer;
+        width: 130px;
+        outline: none;
+        border: none;
+        border-radius: 5%;
+        padding: 1.2em;
+        transition-property: all;
+        transition-delay: 0.3ms;
+        transition-duration: 0.5ms;
+        transition-timing-function: step-start;
+
+        &:hover {
+          transform: scale(1.01);
+          @include set-background-color(lighten($background-color, 5%));
+        }
+      }
+
+      div {
+        //   display: flex;
+        margin: 0.8em 0 0em 0;
+        width: 100%;
+
+        a {
+          text-decoration: none;
+          color: white;
+          i {
+            margin-right: 0.6em;
+            font-size: 30px;
+            transition-property: all;
+            transition-delay: 0.3ms;
+            transition-duration: 0.5ms;
+            transition-timing-function: step-start;
+            cursor: pointer;
+
+            &:hover {
+              transform: scale(1.01);
+            }
+          }
+        }
+      }
+    }
+
+    &__image {
+      padding: 1em;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        // width: auto;
+        //  display: none
+        // border: none;
+        // border-radius: 5%;
+        height: 100%;
+
+        @include desktop {
+          width: auto;
+        }
+      }
+    }
+  }
+
+  #about {
+    box-shadow: 0.6em 0.3em 0.6em 0.3em rgba($secondary-color, 0.3);
+    margin-bottom: 2em;
+
+    &__header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+
+      h3 {
+        margin-bottom: 0em;
+      }
+
+      span {
+        color: coral; //#b1a7a6;
+      }
+    }
+
+    &__cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-items: center;
+      @include set-background-color($primary-color);
+    }
+
+    &__card {
+      margin: 2em;
+      width: 340px;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1em;
+      @include set-background-color($secondary-color);
+      box-shadow: 0.6em 0.3em 0.6em 0.3em rgba($secondary-color, 0.3);
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        list-style: circle;
+        margin: 1em 0 1em 0;
+      }
+    }
+  }
+
+  #skills {
+    box-shadow: 0.6em 0.3em 0.6em 0.3em rgba($secondary-color, 0.3);
+    margin-bottom: 2em;
+
+    &__header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+
+      h3 {
+        margin-bottom: 0em;
+      }
+
+      span {
+        color: coral; //#b1a7a6;
+      }
+    }
+
+    &__cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-items: center;
+      @include set-background-color($primary-color);
+    }
+
+    &__card {
+      margin: 2em;
+      width: 240px;
+      height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1em;
+      @include set-background-color($secondary-color);
+      box-shadow: 0.6em 0.3em 0.6em 0.3em rgba($secondary-color, 0.3);
+
+      h3 {
+        text-align: center;
+      }
+
+      ul {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        list-style: circle;
+        margin: 1em 0 1em 0;
+        overflow: hidden;
+        overflow-y: auto;
+      }
+    }
+  }
+
+  #services {
+    margin-bottom: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+
+      span {
+        color: coral;
+      }
+    }
+
+    &__cards {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      @include set-background-color($primary-color);
+    }
+
+    &__card {
+      margin: 2em;
+      width: 400px;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1em;
+      @include set-background-color($secondary-color);
+      box-shadow: 0.6em 0.3em 0.6em 0.3em rgba($secondary-color, 0.3);
+
+      div {
+        height: 50px;
+
+        img {
+          width: 65px;
+          height: 65px;
+        }
+      }
+
+      h2 {
+        margin: 1.2em 0 1.2em 0;
+        text-align: center;
+      }
+
+      p {
+        text-align: center;
+      }
+    }
+  }
+
+  #projects {
+    margin-bottom: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &__header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+
+      h3 {
+        margin-bottom: 0em;
+      }
+
+      span {
+        color: coral; //#b1a7a6;
+      }
+    }
+
+    &__ideas {
+      // display: flex;
+      position: relative;
+      flex-direction: column;
+      // justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 800px;
+      overflow: hidden;
+      overflow-y: auto;
+      @include set-background-color($primary-color);
+
+      a {
+        text-decoration: none;
+        color: white;
+      }
+    }
+
+    &__tabs {
+      position: sticky;
+      top: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 60px;
+      width: 100%;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      overflow-x: auto;
+      @include set-background-color($primary-color);
+      border-bottom: 5px solid coral;
+
+      ul {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        li {
+          text-align: center;
+          width: 200px;
+          margin-right: 1em;
+          padding: 0.8em;
+          transition-property: all;
+          transition-delay: 0.3ms;
+          transition-duration: 0.5ms;
+          transition-timing-function: step-start;
+          cursor: pointer;
+
+          &:hover {
+            transform: scale(1.01);
+            @include set-background-color(lighten($secondary-color, 5%));
+            border-left: 5px solid coral;
+          }
+        }
+      }
+
+      &-content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    &__project {
+      padding: 1em;
+      width: 240px;
+      height: 310px;
+      margin: 2em;
+      display: flex;
+      flex-direction: column;
+      @include set-background-color($secondary-color);
+      box-shadow: 0.6em 0.3em 0.6em 0.3em rgba($secondary-color, 0.3);
+    }
+    &__img {
+      display: flex;
+      justify-content: center;
+      margin: 1em;
+
+      img {
+        width: 65px;
+        height: 65px;
+      }
+    }
+
+    &__info {
+      h3 {
+        margin-bottom: 0.2em;
+      }
+
+      div {
+        height: 120px;
+        overflow: hidden;
+        overflow-y: auto;
+        margin-bottom: 0.8em;
+        display: flex;
+        flex-direction: column;
+
+        p {
+          word-wrap: break-word;
+        }
+      }
+    }
+
+    &__link a {
+      color: white;
+      float: right;
+      transition-delay: 0.3ms;
+      transition-timing-function: step-end;
+      transition-property: all;
+
+      &:hover {
+        transform: scale(1.01);
+        @include set-background-color(lighten($secondary-color, 5%));
+        border-left: 5px solid coral;
+      }
+    }
+  }
+
+  #contact {
+    margin-bottom: 2em;
+
+    &__header {
+      margin-bottom: 2em;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+      @include set-background-color($secondary-color);
+
+      span {
+        color: coral;
+      }
+    }
+
+    &__form {
+      width: 600px;
+      margin: auto;
+
+      input,
+      textarea {
+        border: 0;
+        outline: none;
+        @include set-background-color($secondary-color);
+      }
+
+      textarea {
+        padding: 1em;
+        width: 100%;
+        height: 400px;
+      }
+
+      p {
+        font-size: 0.8em;
+        margin: 0.4em 0 0.6em 0;
+        visibility: hidden;
+      }
+    }
+
+    P i {
+      color: coral;
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      @include smarthphone__landscape {
+        flex-direction: row;
+      }
+
+      @include tablet {
+        flex-direction: row;
+      }
+
+      @include tabletXL__landscape {
+        flex-direction: row;
+      }
+
+      input {
+        margin: 0 0 1em 0;
+        width: 100%;
+        height: 50px;
+        padding: 0.5em;
+
+        @include tablet {
+          flex-direction: row;
+          width: 49%;
+        }
+
+        @include tabletXL__landscape {
+          flex-direction: row;
+          width: 49%;
+        }
+      }
+    }
+
+    &__sub {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      //background-color: chocolate;
+      height: 40px;
+
+      button:first-child {
+        //.  margin: 0;
+        @include set-background-color($secondary-color);
+        cursor: pointer;
+        width: 170px;
+        outline: none;
+        border: none;
+        padding: 1.2em;
+        transition-property: all;
+        transition-delay: 0.3ms;
+        transition-duration: 0.5ms;
+        transition-timing-function: step-start;
+
+        &:hover {
+          transform: scale(1.01);
+        }
+      }
+    }
+  }
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  @include set-background-color($secondary-color);
+
+  @include smarthphone__landscape {
+    flex-direction: column;
+  }
+
+  @include tablet {
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+  @include tablet__landscape {
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+
+  @include tabletXL {
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+  @include tabletXL__landscape {
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+  @include desktop {
+    justify-content: space-evenly;
+    flex-direction: row;
+  }
+
+  div {
+    margin: 1em;
+    max-width: 450px;
+    //height: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  div:nth-of-type(2) {
+    a {
+      text-decoration: none;
+      color: white;
+      i {
+        margin-right: 0.6em;
+        font-size: 30px;
+        transition-property: all;
+        transition-delay: 0.3ms;
+        transition-duration: 0.5ms;
+        transition-timing-function: step-start;
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.01);
+        }
+      }
+    }
+  }
+
+  p {
+    text-align: center;
+  }
+}

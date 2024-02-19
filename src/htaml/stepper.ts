@@ -136,11 +136,11 @@ async function handleRunAttribute(htamlElement: any, attribute: any) {
           const __processNode = async (data: any, htamlElement: HTAMLElement): Promise<any> => {
             Object.assign(htamlElement.variables, data)
 
-            htamlElement = (await stepThroughHTAMLElement(htamlElement)) as HTAMLElement
+            htamlElement = await stepThroughHTAMLElement(htamlElement) as HTAMLElement
             if (htamlElement.childrens) {
               for (let child of htamlElement.childrens) {
                 child = await __processNode(data, cloneHTAMLNode(child, { removeOriginalNode: true }))
-                if (child.root) htamlElement.root.appendChild(child.root)
+                htamlElement.root.appendChild(child.root)
               }
             }
             return htamlElement

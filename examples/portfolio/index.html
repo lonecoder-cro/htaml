@@ -1,0 +1,515 @@
+<html id="html" lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+        <link rel="icon" type="image/x-icon" href="assets/icon/favricorn.png" />
+        <link rel="stylesheet" href="assets/css/style.css" />
+
+        <title>Japholio</title>
+
+        <style>
+            .htaml-hide {
+                display: none !important;
+            }
+        </style>
+    </head>
+
+    <body class="htaml-hide htaml-fadein-active">
+        <h-script>
+            const links = {
+            twitter: 'https://x.com/lonecoder_cro?t=GGzJhe3IXLDbIbpyb8J15A&s=09',
+            linkedin:'https://ca.linkedin.com/in/jaedan-willis-280975288?trk=profile-badge'
+            };
+            return links;
+        </h-script>
+
+        <main id="main">
+            <section class="container">
+
+                <!-- info -->
+                <section id="info" class="observer">
+                    <div id="info__doc">
+                        <h2>Hello, <span>I'm</span></h2>
+                        <h1>Jaedan Willis</h1>
+                        <h2>Free Lancer</h2>
+                        <p>With knowlegde of Web Development and Software Development, I offer the best projects
+                            resulting in quality.</p>
+                        <button h-on:trigger="click"
+                            h-run:hscript="document.getElementById('contact').scrollIntoView({behavior: 'smooth' })">Let's
+                            Talk</button>
+                        <div>
+                            <a target="_blank" rel="noopener noreferrer"> <i class="fa-brands fa-instagram"></i></a>
+                            <a h-dom:href="links.twitter" target="_blank" rel="noopener noreferrer"><i
+                                    class="fa-brands fa-twitter"></i></a>
+                            <a h-dom:href="links.linkedin" target="_blank" rel="noopener noreferrer"><i
+                                    class="fa-brands fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div id="info__image">
+                        <img src="assets/images/IMG-20190926-WA0011.jpg" alt="a pic of me" />
+                    </div>
+                </section>
+
+                <!-- about -->
+                <section id="about" class="observer">
+                    <div id="about__header">
+                        <h3><span></span></h3>
+                        <h2>About Me</h2>
+                    </div>
+                </section>
+
+                <!-- skills -->
+                <section id="skills" class="observer">
+                    <div id="skills__header">
+                        <h3>Favourite <span>Skills</span></h3>
+                        <h2>My Skills</h2>
+                    </div>
+
+                    <h-script>
+                        const skills = [
+                        {
+                        'name': 'Mobile App Skills',
+                        'skills': [
+                        "PWA's",
+                        'NativaScript',
+                        'Android Studio'
+                        ],
+                        },
+                        {
+                        'name': 'Frontend Skills',
+                        'skills': [
+                        'CSS3',
+                        'SCSS',
+                        'HTML5',
+                        'Angular+',
+                        'Typescript',
+                        'Javascript'
+                        ],
+                        },
+                        {
+                        'name': 'Backend Skills',
+                        'skills': [
+                        'Flask',
+                        'NodeJs',
+                        'Express',
+                        ],
+                        },
+                        {
+                        'name': 'Software Skills',
+                        'skills': [
+                        'C',
+                        'C#',
+                        'Go',
+                        'Java',
+                        'Kotlin',
+                        'JScript',
+                        'Python'
+                        ],
+                        },
+                        {
+                        'name': 'Hardware Skills',
+                        'skills': [
+                        'Embedded C',
+                        'Arduino C++'
+                        ],
+                        },
+                        {
+                        'name': 'Essentials Skills',
+                        'skills': [
+                        'SQL',
+                        'Github',
+                        'Docker',
+                        'MongoDb',
+                        'Lucidchart',
+                        'Microservices',
+                        'Microsoft 365',
+                        'Microsoft Azure'
+                        ],
+                        }
+                        ];
+                        return skills;
+                    </h-script>
+
+                    <div h-run:for="skill in skills" id="skills__cards">
+                        <div id="skills__card">
+                            <h3 h-dom:text="skill.name"></h3>
+                            <ul h-run:for="name in skill.skills">
+                                <li h-dom:text="name"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- services -->
+                <section id="services" class="observer">
+                    <div id="services__header">
+                        <h3>My <span>Services</span></h3>
+                        <h2>What I Offer</h2>
+                    </div>
+
+                    <h-script>
+                        const services = [
+                        {
+                        'name': 'Web Developer',
+                        'icon': 'assets/icon/web.png',
+                        'description': 'Develope of custom web pages using current technologies and libaries.',
+                        },
+                        {
+                        'name': 'Software Developer',
+                        'icon': 'assets/icon/clean-code.png',
+                        'description': 'Develope of custom software.',
+                        }
+                        ];
+                        return services;
+                    </h-script>
+
+                    <div h-run:for="service in services" id="services__cards">
+                        <div id="services__card">
+                            <div>
+                                <img h-dom:src="service.icon" alt="" />
+                            </div>
+
+                            <h2 h-dom:text="service.name"></h2>
+                            <p h-dom:text="service.description"></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- projects -->
+                <section id="projects" class="observer">
+                    <div id="projects__header">
+                        <h3>My <span>Projects</span></h3>
+                        <h2>What I Made</h2>
+                    </div>
+
+                    <div id="projects__ideas">
+                        <div id="projects__tabs">
+                            <ul>
+                                <li class="tabactive" h-on:trigger="click" h-dom:switch="ui attr:tab active:.tabactive">
+                                    Ui</li>
+                                <li h-on:trigger="click" h-dom:switch="web attr:tab active:.tabactive">Web </li>
+                                <li h-on:trigger="click" h-dom:switch="bots attr:tab active:.tabactive">Bots</li>
+                                <li h-on:trigger="click" h-dom:switch="shell attr:tab active:.tabactive">Shell</li>
+                                <li h-on:trigger="click" h-dom:switch="devprojects attr:tab active:.tabactive">Projects
+                                </li>
+                            </ul>
+                        </div>
+
+                        <section h-dom:id="ui" tab>
+                            <h-script>
+                                let uis = [
+                                {
+                                'name': 'CroSafe',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_safe',
+                                'description': 'A password manager. written in python.',
+                                },
+                                {
+                                'name': 'CroLoc',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_loc',
+                                'description': 'A password manager, written in javafx.',
+                                },
+                                {
+                                'name': 'CroPy2Exe',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_py2exe',
+                                'description': 'A helpful program to generate a exe from a python file.',
+                                }
+                                ];
+
+                                return uis;
+                            </h-script>
+
+                            <div h-run:for="ui in uis" id="projects__tabs-content">
+                                <div id="projects__project">
+                                    <div id="projects__img">
+                                        <img h-dom:src="ui.icon" h-dom:alt="ui.link_text" />
+                                    </div>
+                                    <div id="projects__info">
+                                        <h3 h-dom:text="ui.name"></h3>
+                                        <div>
+                                            <p h-dom:text="ui.description"></p>
+                                        </div>
+                                    </div>
+                                    <div id="projects__link"><a h-dom:href="ui.link" h-dom:text="ui.link_text"
+                                            target="_blank"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section h-dom:id="web" h-dom:cloak="hide" tab>
+                            <h-script>
+                                let webs = [
+                                {
+                                'name': 'Fassion Breeze',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Site',
+                                'link': 'https://fassionbreezestagesite.azurewebsites.net/men',
+                                'description': 'A e-commerce service which offers a variety of clothing. Note currently
+                                in stageing mode.',
+                                },
+                                {
+                                'name': 'Fassion Breeze CMS',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Site',
+                                'link': 'https://fassionbreezestagecms.azurewebsites.net',
+                                'description': 'A custom CMS which manages Fassion Breeze front end. Note currently in
+                                stageing mode.',
+                                },
+                                {
+                                'name': 'Japholio',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/lonecoder-cro/japholio',
+                                'description': 'This current website, built with htaml.js and flask.',
+                                }
+                                ];
+
+                                return webs;
+                            </h-script>
+
+                            <div h-run:for="web in webs" id="projects__tabs-content">
+                                <div id="projects__project">
+                                    <div id="projects__img">
+                                        <img h-dom:src="web.icon" h-dom:alt="web.link_text" />
+                                    </div>
+                                    <div id="projects__info">
+                                        <h3 h-dom:text="web.name"></h3>
+                                        <div>
+                                            <p h-dom:text="web.description"></p>
+                                        </div>
+                                    </div>
+                                    <div id="projects__link"><a h-dom:href="web.link" h-dom:text="web.link_text"
+                                            target="_blank"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section h-dom:id="bots" h-dom:cloak="hide" tab>
+                            <h-script>
+                                let bots = [
+                                {
+                                'name': 'Instagram',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_insta',
+                                'description': 'A instagram bot which can be used to perform automated task including
+                                downloading photos,reels and videos.',
+                                },
+                                {
+                                'name': 'TikTok',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_tiktok',
+                                'description': 'A tiktok bot which can be used to perform automated task including
+                                downloading videos.',
+                                },
+                                {
+                                'name': 'Crypto.com',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_crypto.com',
+                                'description': 'A trading bot for crypto.com.',
+                                },
+                                {
+                                'name': 'XVideos',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_xvids',
+                                'description': 'A xvideos bot which can be used to perform automated task including
+                                downloading videos.',
+                                }
+                                ];
+
+                                return bots;
+                            </h-script>
+
+                            <div h-run:for="bot in bots" id="projects__tabs-content">
+                                <div id="projects__project">
+                                    <div id="projects__img">
+                                        <img h-dom:src="bot.icon" h-dom:alt="bot.link_text" />
+                                    </div>
+                                    <div id="projects__info">
+                                        <h3 h-dom:text="bot.name"></h3>
+                                        <div>
+                                            <p h-dom:text="bot.description"></p>
+                                        </div>
+                                    </div>
+                                    <div id="projects__link"><a h-dom:href="bot.link" h-dom:text="bot.link_text"
+                                            target="_blank"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section h-dom:id="shell" h-dom:cloak="hide" tab>
+                            <h-script>
+                                let shells = [
+                                {
+                                'name': 'CroSteg',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_steg',
+                                'description': 'A tool which allows you to perform steganography.',
+                                },
+                                {
+                                'name': 'CroCord',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_cord',
+                                'description': 'A tool which allows you to look up coordinates.',
+                                },
+                                {
+                                'name': 'CroExtract',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_extract',
+                                'description': 'A tool which allows you to extract emails, phone numbers,image metadata
+                                and stored wifi passwords.A
+                                url can also be used to extract emails and phone numbers.',
+                                },
+                                {
+                                'name': 'CroSimper',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_simper',
+                                'description': 'A tool which allows you to look up your fav pornstar',
+                                },
+                                {
+                                'name': 'CroNet',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_net',
+                                'description': 'A basic network scanner which scans for open ports.',
+                                },
+                                {
+                                'name': 'CPass',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_pass',
+                                'description': 'A random password generater that i used for all my passwords.',
+                                }
+                                ];
+
+                                return shells;
+                            </h-script>
+
+                            <div h-run:for="shell in shells" id="projects__tabs-content">
+                                <div id="projects__project">
+                                    <div id="projects__img">
+                                        <img h-dom:src="shell.icon" h-dom:alt="shell.link_text" />
+                                    </div>
+                                    <div id="projects__info">
+                                        <h3 h-dom:text="shell.name"></h3>
+                                        <div>
+                                            <p h-dom:text="shell.description"></p>
+                                        </div>
+                                    </div>
+                                    <div id="projects__link"><a h-dom:href="shell.link" h-dom:text="shell.link_text"
+                                            target="_blank"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section h-dom:id="devprojects" h-dom:cloak="hide" tab>
+                            <h-script>
+                                let devprojects = [
+                                {
+                                'name': 'HTAMLJS',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/htamljs',
+                                'description': 'A javascript libary similar to "HTMX" but written my way. It also powers
+                                this website.',
+                                },
+                                {
+                                'name': 'CroLang',
+                                'icon': 'assets/icon/radar.png',
+                                'link_text': 'View Code',
+                                'link': 'https://github.com/cro-technologies/cro_lang',
+                                'description': 'My attempt of creating a interpreted programming language.',
+                                }
+                                ];
+
+                                return devprojects;
+                            </h-script>
+
+                            <div h-run:for="project in devprojects" id="projects__tabs-content">
+                                <div id="projects__project">
+                                    <div id="projects__img">
+                                        <img h-dom:src="project.icon" h-dom:alt="project.link_text" />
+                                    </div>
+                                    <div id="projects__info">
+                                        <h3 h-dom:text="project.name"></h3>
+                                        <div>
+                                            <p h-dom:text="project.description"></p>
+                                        </div>
+                                    </div>
+                                    <div id="projects__link"><a h-dom:href="project.link" h-dom:text="project.link_text"
+                                            target="_blank"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+
+                </section>
+
+                <section id="contact" class="observer">
+                    <div id="contact__header">
+                        <h3>Get In<span> Touch</span></h3>
+                        <h2>Contact Me</h2>
+                    </div>
+
+                    <form id="contact__form">
+                        <div id="contact__info">
+                            <input type="text" name="name" placeholder="Your name" />
+                            <input type="email" name="email" placeholder="Your email" />
+                        </div>
+                        <textarea name="message" id="" cols="30" rows="10"></textarea>
+                        <p>Message Sent <i class="fa-solid fa-check"></i></p>
+                        <div id="contact__sub"><button>Send Message</button></div>
+                    </form>
+                </section>
+            </section>
+        </main>
+
+        <footer>
+            <div>
+                <h1><span></span></h1>
+            </div>
+            <div>
+                <a target="_blank" rel="noopener noreferrer"> <i class="fa-brands fa-instagram"></i></a>
+                <a h-dom:href="links.twitter" target="_blank" rel="noopener noreferrer"><i
+                        class="fa-brands fa-twitter"></i></a>
+                <a h-dom:href="links.linkedin" target="_blank" rel="noopener noreferrer"><i
+                        class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+
+            <div>
+                <p h-run:hscript="return new Date().getFullYear()" h-dom:data="{devYear:2023}"
+                    h-run:if="hscript > devYear"
+                    h-dom:text="Copyright &copy;,' ',devYear,-,hscript, japholio.com. All rights reserved.Powered by htaml.js and flask.">
+                </p>
+            </div>
+        </footer>
+
+        <!-- external links -->
+        <script src="https://kit.fontawesome.com/c275cd6b9c.js" crossorigin="anonymous"></script>
+
+        <!-- local scripts -->
+        <script defer crossorigin="anonymous" type="module" src="../../dist/htaml.js"></script>
+    </body>
+
+</html>
