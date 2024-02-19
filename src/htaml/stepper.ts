@@ -323,7 +323,8 @@ async function handleDomAttribute(htamlElement: HTAMLElement, attribute: any): P
             }
           }
 
-          if (!isModified) stepThroughHTAMLElements([target])
+          if (!isModified)  //default behavior is append the result to the current element
+            stepThroughHTAMLElements([target])
         }
         break
       case "ignore": // ignore any element with this attribute
