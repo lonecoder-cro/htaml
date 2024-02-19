@@ -3,7 +3,7 @@ import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 import { describe, it } from 'mocha'
 
-//chai.use(chaiAsPromised)
+// chai.use(chaiAsPromised)
 // var expect = chai.expect
 // var assert = chai.assert
 
