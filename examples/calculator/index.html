@@ -10,7 +10,6 @@
                 display: none !important;
             }
 
-
             body {
                 box-sizing: border-box;
                 font-family: Arial, sans-serif;
@@ -108,57 +107,59 @@
                 <button class="equal" value="=">=</button> -->
             </div>
 
-            <h-script>
+            <hscript>
                 const calculatorScreen = document.querySelector('.calculator-screen');
                 const calculatorKeys = document.querySelector('.calculator-keys');
 
                 if(!calculatorKeys && !calculatorScreen) return null;
 
                 const buttons = [
-                    {'class':'operator','value':'+'},
-                    {'class':'operator','value':'-' },
-                    {'class':'operator','value':'*'},
-                    {'class':'operator','value':'/'},
-                    {'class':'','value':'7'},
-                    {'class':'','value':'8'},
-                    {'class':'','value':'9'},
-                    {'class':'','value':'4'},
-                    {'class':'', 'value':'5'},
-                    {'class':'','value':'6' },
-                    {'class':'','value':'1'},
-                    {'class':'','value':'2'},
-                    {'class':'','value':'3'},
-                    {'class':'','value':'0'},
-                    {'class':'','value':'.'},
-                    {'class':'clear','value':'C'},
-                    {'class':'equal','value':'='}
+                {'class':'operator','value':'+'},
+                {'class':'operator','value':'-' },
+                {'class':'operator','value':'*'},
+                {'class':'operator','value':'/'},
+                {'class':'','value':'7'},
+                {'class':'','value':'8'},
+                {'class':'','value':'9'},
+                {'class':'','value':'4'},
+                {'class':'', 'value':'5'},
+                {'class':'','value':'6' },
+                {'class':'','value':'1'},
+                {'class':'','value':'2'},
+                {'class':'','value':'3'},
+                {'class':'','value':'0'},
+                {'class':'','value':'.'},
+                {'class':'clear','value':'C'},
+                {'class':'equal','value':'='}
                 ];
 
                 for(const button of buttons){
-                    const newButton = document.createElement('button');
-                    newButton.value = button.value;
-                    newButton.textContent = button.value;
-                    if(button.class)newButton.classList.add(button.class);
-                    newButton.addEventListener('click',(event)=>{
-                        if (!event.target.matches('button')) return;
+                const newButton = document.createElement('button');
+                newButton.value = button.value;
+                newButton.title = button.value;
+                newButton.textContent = button.value;
+                if(button.class)newButton.classList.add(button.class);
+                newButton.addEventListener('click',(event)=>{
+                if (!event.target.matches('button')) return;
 
-                        const key = event.target;
-                        const keyValue = key.textContent;
-                        const displayedNum = calculatorScreen.value;
+                const key = event.target;
+                const keyValue = key.textContent;
+                const displayedNum = calculatorScreen.value;
 
-                        if (key.classList.contains('operator')) {
-                        calculatorScreen.value += ` ${keyValue} `;
-                        } else if (keyValue === '=') {
-                        calculatorScreen.value = eval(displayedNum);
-                        } else if (keyValue === 'C') {
-                        calculatorScreen.value = '';
-                        } else {
-                        calculatorScreen.value += keyValue;
-                        }
-                    });
-                    calculatorKeys.appendChild(newButton);
+                if (key.classList.contains('operator')) {
+                calculatorScreen.value += ` ${keyValue} `;
+                } else if (keyValue === '=') {
+                if(calculatorScreen.value)calculatorScreen.value = eval(displayedNum);
+                } else if (keyValue === 'C') {
+                calculatorScreen.value = '';
+                } else {
+                calculatorScreen.value += keyValue;
                 }
-            </h-script>
+                });
+
+                calculatorKeys.appendChild(newButton);
+                }
+            </hscript>
         </div>
 
         <script crossorigin="anonymous" defer type="text/javascript" src="../../dist/htaml.js"></script>

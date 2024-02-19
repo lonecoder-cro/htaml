@@ -2,7 +2,7 @@ import { cloneHTAMLNode, removeHTAMLAttributeFromHTAMLElement, htamlEvalHScript,
 import { htamlGet, htamlPost } from "../core/req"
 import { HTAMLElement } from "./interface"
 import HTAMLJParser from "../htaml_jparser"
-import { parseElementChildrens } from "./parser"
+import { parseElement, parseElementChildrens } from "./parser"
 import CONFIG from "../config"
 
 async function handleOnAttribute(htamlElement: any, attribute: any) {
@@ -138,7 +138,11 @@ async function handleRunAttribute(htamlElement: any, attribute: any) {
           match.slice(1).forEach((value: string) => {
             const values = value.split('=')
             if (values[1] === 'index') indexIdentifier = values[0]
-            else dataObject[values[0]] = replaceVariable(values[1], htamlElement)
+            else {
+              const _v: string | null = replaceVariable(values[1], htamlElement)
+              if (_v) dataObject[values[0]] = eval(_v)
+              else dataObject[values[0]] = values[1]
+            }
           })
         }
 
@@ -216,7 +220,7 @@ async function handleHScript(htamlElement: any): Promise<HTAMLElement | null> {
 async function handleDomAttribute(htamlElement: HTAMLElement, attribute: any): Promise<HTAMLElement | null> {
   return new Promise(async (resolve, reject) => {
     const element = <HTMLElement | any>htamlElement.root
-    let target: HTAMLElement | HTMLElement | null = null
+    let target: HTAMLElement | HTMLElement | null | any = null
     let selector: string = ''
     let values: any = []
     let value = attribute.value
@@ -224,9 +228,7 @@ async function handleDomAttribute(htamlElement: HTAMLElement, attribute: any): P
     let modifiers: RegExpMatchArray | null = null
 
     switch (attribute.action) {
-      case "id":
-        //unique identifier for a element
-        //NOTE:can be overridden
+      case "id"://identifier for a element,can be overwritten
         addHTAMLElementToDomIds(htamlElement, value)
         break
       case "switch":
@@ -239,34 +241,18 @@ async function handleDomAttribute(htamlElement: HTAMLElement, attribute: any): P
           if (modifiers) {
             for (let modifier of modifiers) {
               modifier = modifier.split(":") as any
-              if (modifier[0] === "attr") document.querySelectorAll(`[${modifier[1]}]`).forEach((attr: any) => attr.classList.add("htaml-hide"))
-              else if (modifier[0] === "active") {
-                document.querySelectorAll(`${modifier[1]}`).forEach((attr: any) => attr.classList.remove(modifier[1].substring(1)))
-                element.classList.add(modifier[1].substring(1))
+              value = modifier[1]
+              switch (modifier[0]) {
+                case 'attr':
+                  document.querySelectorAll(`[${value}]`).forEach((element: Element) => element.classList.add("htaml-hide"))
+                  break
+                case 'active':
+                  document.querySelectorAll(`.${value}`).forEach((element: Element) => element.classList.remove(value))
+                  element.classList.add(value)
+                  break
               }
             }
-
-            target.classList.remove("htaml-cloak")
             target.classList.remove("htaml-hide")
-          }
-
-        }
-        break
-      case "toggle":
-        //toggle an element on and off
-        selector = value.split(' ')[0]
-        target = getHTAMLElementByDomId(selector)
-        if (target) {
-          modifiers = value.match(CONFIG.MODIFIERS_REGEX)
-          if (modifiers) {
-            for (let modifier of modifiers) {
-              modifier = modifier.split(":") as any
-              target.root.classList.remove("htaml-cloak")
-              target.root.classList.remove("htaml-hide")
-
-              if (!target.root.classList.contains(`htaml-${modifier}`)) target.root.classList.add(`htaml-${modifier}`)
-              else target.root.classList.remove(`htaml-${modifier}`)
-            }
           }
         }
         break
@@ -314,10 +300,10 @@ async function handleDomAttribute(htamlElement: HTAMLElement, attribute: any): P
           if (modifiers && modifiers.length) {
             for (let modifier of modifiers) {
               modifier = <any>modifier.split(":")
+              value = modifier[1]
               switch (modifier[0]) {
                 case "on_process":
-                  if (modifier[1] === 'replace') {
-                    //replaces the old node with new node
+                  if (value === 'replace') { //replaces the old node with new node
                     const clone = cloneHTAMLNode(target as HTAMLElement, { removeOriginal: true })
                     target = await stepThroughHTAMLElement(clone)
                     if (target) {
@@ -325,8 +311,7 @@ async function handleDomAttribute(htamlElement: HTAMLElement, attribute: any): P
                       isModified = true
                     }
                   }
-                  else if (modifier[1] === 'scroll') {
-                    //scroll to the bottom of element
+                  else if (value === 'scroll') { //scroll to the bottom of element
                     target = await stepThroughHTAMLElement(target)
                     if (target) {
                       window.scrollTo({ top: target.root.scrollHeight, behavior: 'smooth' })
@@ -341,31 +326,24 @@ async function handleDomAttribute(htamlElement: HTAMLElement, attribute: any): P
           if (!isModified) stepThroughHTAMLElements([target])
         }
         break
-      case "ignore":
-        // ignore any element with this attribute
+      case "ignore": // ignore any element with this attribute
         if (value === "this") { //ignore the current element only, all child elements or processed
           htamlElement = removeHTAMLAttributeFromHTAMLElement(htamlElement, attribute)
           await stepThroughHTAMLElements(htamlElement.childrens)
           return resolve(null)
-        } else if (value === "all") {
-          //ignore all
+        } else if (value === "all") {//ignore all
           return resolve(null)
         }
         break
-      case "swap":
-        // replaces the given target with the element.response.body
-        // takes a dom id r a html element
+      case "swap": // replaces the given target with the element.response.body Takes a dom id r a html element
         selector = value.split(" ")[0]
-        target = getHTAMLElementByDomId(selector)
-        if (!target) {
-          target = document.querySelector(selector) as HTMLElement
-          if (!target) return resolve(null)
-        } else target = target.root as HTMLElement
-
-        let transitions: RegExpExecArray | null = null
-        if (value.includes("transition")) {
-          transitions = value.match(/transition:([\w-]*)/)
-          if (transitions && transitions.length == 2) target.classList.remove(transitions[1])
+        if (selector === 'this') target = element
+        else {
+          target = getHTAMLElementByDomId(selector)
+          if (!target) {
+            target = document.querySelector(selector) as HTMLElement
+            if (!target) return resolve(null)
+          } else target = target.root as HTMLElement
         }
 
         //check for title tag and override current
@@ -375,33 +353,38 @@ async function handleDomAttribute(htamlElement: HTAMLElement, attribute: any): P
           document.title = hasTitle[1]
         }
 
-        if ((value.includes("outter") || value.includes("this")) && target.tagName !== "HTML") {
-          target.outerHTML = htamlElement.response.content
-          await stepThroughHTAMLElements(await parseElementChildrens(document.body.children as HTMLCollection))
-        } else if (value.includes("inner")) {
-          target.innerHTML = htamlElement.response.content
-          await stepThroughHTAMLElements(await parseElementChildrens(target.children as HTMLCollection))
-        } else if (target.tagName !== "HTML") {
-          target.outerHTML = htamlElement.response.content
-          await stepThroughHTAMLElements(await parseElementChildrens(document.body.children as HTMLCollection))
-        } else target.innerHTML = htamlElement.response.content
-        await stepThroughHTAMLElements(await parseElementChildrens(target.children as HTMLCollection))
+        const html = htamlElement.response.content
 
-        if (transitions) target.classList.add(transitions[1])
+        modifiers = value.match(CONFIG.MODIFIERS_REGEX)
+        if (modifiers && modifiers.length) {
+          for (let modifier of modifiers) {
+            modifier = modifier.split(":") as any
+            switch (modifier[0]) {
+              case 'replace':
+                value = modifier[1]
+                if (value === 'outter' && target.tagName !== "HTML")
+                  target.outerHTML = html
+                else if (value === 'outter' && target.tagName === "HTML")
+                  target.innerHTML = html
+                else if (value === 'inner')
+                  target.innerHTML = html
+                break
+            }
+          }
 
+        } else target.outerHTML = html
+        await stepThroughHTAMLElements([(await parseElement(document.body))])
         break
       case "cloak":
         if (value === "cloak") element.classList.add("htaml-cloak")
         else if (value === "hide") element.classList.add("htaml-hide")
         break
-      case "data":
-        //we have data to store
+      case "data": //used to declare variables
         let json: any = new HTAMLJParser(attribute.value)
         const result = await htamlEval(json)
         Object.assign(htamlElement.variables, result)
         break
-      case "text":
-        // set the inner text of a element
+      case "text": // set the inner text of a element
         element.removeAttribute(attribute.action)
         variables = value.split(",").reverse()
         for (const variable of variables) {
@@ -412,8 +395,7 @@ async function handleDomAttribute(htamlElement: HTAMLElement, attribute: any): P
           }
         }
         break
-      default:
-        //  any default element attributes
+      default://  any default element attributes
         element.removeAttribute(attribute.action)
         variables = value.split(",").reverse()
         for (const variable of variables) {

@@ -16,7 +16,7 @@
         </style>
     </head>
 
-    <body class="htaml-hide htaml-fadein-active">
+    <body class="htaml-fadein-active">
         <header
             h-dom:data="{about: 'About', skills: 'Skills',  services:'Services',projects:'Projects',contact:'Contact',j:'Japho',l:'lio'}">
             <div>
@@ -44,7 +44,7 @@
                         <h2>Free Lancer</h2>
                         <p>With knowlegde of Web Development and Software Development, I offer the best projects
                             resulting in quality.</p>
-                        <button h-on:trigger="click once" h-req:get="swap.html" h-dom:swap="swap outter">Press
+                        <button h-on:trigger="click once" h-req:get="swap.html" h-dom:swap="swap">Press
                             Me To
                             Swap</button>
                         <div>
@@ -79,7 +79,7 @@
             <div>
                 <p h-run:hscript="return new Date().getFullYear()" h-dom:data="{devYear:2023}"
                     h-run:if="hscript > devYear"
-                    h-dom:text="Copyright &copy;,' ',devYear,-,hscript, japholio.com. All rights reserved.Powered by htaml.js and flask.">
+                    h-dom:text="Copyright &copy; ,devYear,-,hscript, japholio.com. All rights reserved.Powered by htaml.js and flask.">
                 </p>
             </div>
         </footer>

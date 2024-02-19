@@ -13,7 +13,7 @@
         <h2>My Skills</h2>
     </div>
 
-    <h-script>
+    <hscript>
         const skills = [
         {
         'name': 'Mobile App Skills',
@@ -66,7 +66,7 @@
         }
         ];
         return skills;
-    </h-script>
+    </hscript>
 
     <div h-run:for="skill in skills" id="about__cards">
         <div id="about__card">
@@ -85,7 +85,7 @@
         <h2>What I Offer</h2>
     </div>
 
-    <h-script>
+    <hscript>
         const services = [
         {
         'name': 'Web Developer',
@@ -99,7 +99,7 @@
         }
         ];
         return services;
-    </h-script>
+    </hscript>
 
     <div h-run:for="service in services" id="services__cards">
         <div id="services__card">
@@ -123,18 +123,18 @@
     <div id="projects__ideas">
         <div id="projects__tabs">
             <ul>
-                <li class="tabactive" h-on:trigger="click" h-dom:switch="ui attr:tab active:.tabactive">
+                <li class="tabactive" h-on:trigger="click" h-dom:switch="ui attr:tab active:tabactive">
                     Ui</li>
-                <li h-on:trigger="click" h-dom:switch="web attr:tab active:.tabactive">Web </li>
-                <li h-on:trigger="click" h-dom:switch="bots attr:tab active:.tabactive">Bots</li>
-                <li h-on:trigger="click" h-dom:switch="shell attr:tab active:.tabactive">Shell</li>
-                <li h-on:trigger="click" h-dom:switch="devprojects attr:tab active:.tabactive">Projects
+                <li h-on:trigger="click" h-dom:switch="web attr:tab active:tabactive">Web </li>
+                <li h-on:trigger="click" h-dom:switch="bots attr:tab active:tabactive">Bots</li>
+                <li h-on:trigger="click" h-dom:switch="shell attr:tab active:tabactive">Shell</li>
+                <li h-on:trigger="click" h-dom:switch="devprojects attr:tab active:tabactive">Projects
                 </li>
             </ul>
         </div>
 
         <section h-dom:id="ui" tab>
-            <h-script>
+            <hscript>
                 let uis = [
                 {
                 'name': 'CroSafe',
@@ -160,7 +160,7 @@
                 ];
 
                 return uis;
-            </h-script>
+            </hscript>
 
             <div h-run:for="ui in uis" id="projects__tabs-content">
                 <div id="projects__project">
@@ -182,7 +182,7 @@
         </section>
 
         <section h-dom:id="web" h-dom:cloak="hide" tab>
-            <h-script>
+            <hscript>
                 let webs = [
                     {
                     'name': 'Fassion Breeze',
@@ -210,7 +210,7 @@
                 ];
 
                 return webs;
-            </h-script>
+            </hscript>
 
             <div h-run:for="web in webs" id="projects__tabs-content">
                 <div id="projects__project">
@@ -230,7 +230,7 @@
         </section>
 
         <section h-dom:id="bots" h-dom:cloak="hide" tab>
-            <h-script>
+            <hscript>
                                 let bots = [
                                 {
                                 'name': 'Instagram',
@@ -266,7 +266,7 @@
                                 ];
 
                                 return bots;
-                            </h-script>
+                            </hscript>
 
             <div h-run:for="bot in bots" id="projects__tabs-content">
                 <div id="projects__project">
@@ -286,7 +286,7 @@
         </section>
 
         <section h-dom:id="shell" h-dom:cloak="hide" tab>
-            <h-script>
+            <hscript>
                 let shells = [
                 {
                 'name': 'CroSteg',
@@ -335,7 +335,7 @@
                 ];
 
                 return shells;
-            </h-script>
+            </hscript>
 
             <div h-run:for="shell in shells" id="projects__tabs-content">
                 <div id="projects__project">
@@ -356,7 +356,7 @@
         </section>
 
         <section h-dom:id="devprojects" h-dom:cloak="hide" tab>
-            <h-script>
+            <hscript>
                 let devprojects = [
                 {
                 'name': 'HTAMLJS',
@@ -376,7 +376,7 @@
                 ];
 
                 return devprojects;
-            </h-script>
+            </hscript>
 
             <div h-run:for="project in devprojects" id="projects__tabs-content">
                 <div id="projects__project">

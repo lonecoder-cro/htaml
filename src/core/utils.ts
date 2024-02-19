@@ -264,9 +264,9 @@ export async function htamlEval(code: string, options: any = { stringify: false 
   return new Promise((resolve, reject) => {
     function _() {
       try {
-        return new Function(`return ${code}`)()
-      } catch (error) {
         return new Function(`return ${JSON.stringify(code)}`)()
+      } catch (error) {
+        return new Function(`return ${code}`)()
       }
     }
     const result = eval("_()")
