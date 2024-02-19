@@ -336,15 +336,16 @@ Accessing default attributes.
 Can be use to perform synchronous/asynchronous requesst.
 
 ##### Actions:
-  * data - data to be sent to sever.
 
-  * out - output result to a variable.
+  * :data - data to be sent to sever.
 
-  * config - used to configure the request.
+  * :out - output result to a variable.
 
-  * get - perform a GET request.
+  * :config - used to configure the request.
 
-  * post - perform a POST request.
+  * :get - perform a GET request.
+
+  * :post - perform a POST request.
 
 #### The :out action
 
@@ -443,6 +444,14 @@ After form submission the h-dom:ignore attribute will be removed so it can be pr
 ## htaml-run attribute
 
 Used to perform if statements and for loops.
+
+##### Actions:
+
+  * :if - verify a condition
+
+  * :for - performs loops over arrays
+
+  * :hscript - allows inline code
 
 #### The :hscript action
 
