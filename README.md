@@ -37,7 +37,12 @@ HTAML (Hypertext Advance Markup Language) is not a replacement for [HTMX](http:/
         ```
 
 ## htaml-on attribute
+
 Use to trigger events on a dom element.
+
+###### Actions:
+
+  * :trigger - Add a event to a element.
 
 #### The :trigger action
 Triggers an event on a element.
@@ -72,6 +77,26 @@ Here is some examples
 ## htaml-dom attribute
 
 Use to manipulate the dom and elements.
+
+###### Actions:
+
+  * :id - This is is for the first argument for all htaml-dom attributes.
+
+  * :switch - Give a tab like feeling.
+
+  * :bindto - Allows one way data binding.
+
+  * :proc - Process a html element with HTAML attributes.
+
+  * :ignore - Skip processing of element.
+
+  * :swap - Replaces the contents of a element with the content from a get request.
+
+  * :cloak - Hide a element on the DOM.
+
+  * :data - Used to store data.
+
+  * :text - Set the text content of the element.
 
 #### The :bindto action
 
@@ -445,7 +470,7 @@ After form submission the h-dom:ignore attribute will be removed so it can be pr
 
 Used to perform if statements and for loops.
 
-##### Actions:
+###### Actions:
 
   * :if - verify a condition
 
