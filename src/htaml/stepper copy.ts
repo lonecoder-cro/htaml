@@ -121,65 +121,53 @@ async function handleRunAttribute(htamlElement: any, attribute: any) {
         value = value.replace(/\s\s/g, "")
         htamlElement.variables["hscript"] = await htamlEvalHScript(value)
       }
-    } else if (attribute.action === "for") {
+    } else if (attribute.action === "for" && attribute.value.match(/(\sin\s)/)) {
       element.classList.add("htaml-cloak")
 
-      let match = attribute.value.match(CONFIG.FOR_LOOP_REGEX)
+      value = value.split(" ")
+      if (value.length == 3) {
+        const varToReplace = value[0] //only used for array and not objects
+        let loopTarget = value[2] //can be defind as user.addresses or users
 
-      if (match && match.length) {
-        let dataObject: any = {}
-        let indexIdentifier: string = 'i'
-
-        const forString = match[0].split('in')
-        const replaceIdentifyer = forString[0].replace(/\s/g, '')
-        const loopIdentifyer = forString[1].replace(/\s/g, '')
-
-        if (match.length > 1) {
-          match.slice(1).forEach((value: string) => {
-            const values = value.split('=')
-            if (values[1] === 'index') indexIdentifier = values[0]
-            else dataObject[values[0]] = replaceVariable(values[1], htamlElement)
-          })
-        }
-
-        let data: any = replaceVariable(loopIdentifyer, htamlElement)
+        let data: any = replaceVariable(loopTarget, htamlElement)
         if (data) {
           removeChildNodesFromDOM(htamlElement)
 
-          const processCloneNode = async (htamlElement: HTAMLElement): Promise<any> => {
-            let clone: HTAMLElement | null = cloneHTAMLNode(htamlElement, { removeOriginalNode: true })
-            clone = await stepThroughHTAMLElement(clone) as HTAMLElement
-            if (clone && clone.childrens) {
-              for (let child of clone.childrens) {
-                child = await processCloneNode(child)
-                clone.root.appendChild(child.root)
+          const __processNode = async (data: any, htamlElement: HTAMLElement): Promise<any> => {
+            Object.assign(htamlElement.variables, data)
+
+            htamlElement = await stepThroughHTAMLElement(htamlElement) as HTAMLElement
+            if (htamlElement.childrens) {
+              for (let child of htamlElement.childrens) {
+                child = await __processNode(data, cloneHTAMLNode(child, { removeOriginalNode: true }))
+                htamlElement.root.appendChild(child.root)
               }
             }
-            return clone
+            return htamlElement
           }
 
-          for (let htamlChild of htamlElement.childrens) {
+          for (let _htamlElement of htamlElement.childrens) {
             let index: number = 0
             for (let value of data) {
-              /* dom:text only understands key value pairs, so to solve this problem i
-              will put the array value in a object as follow -> eg: [replaceIdentifyer] = '0'
-              where replaceIdentifyer is equal to the fisrt word for in a for expression. eg: number in numbers -> ['number'] = '0'
-              */
-              dataObject[indexIdentifier] = index
-              dataObject[replaceIdentifyer] = value
-              dataObject = JSON.parse(JSON.stringify(dataObject))
-              Object.assign(htamlChild.variables, dataObject)
+              // //for each child step over each inner child and process elements
+              // let clone = cloneHTAMLNode(_htamlElement, { removeOriginalNode: true })
 
-              htamlChild = await processCloneNode(htamlChild)
-              element.appendChild(htamlChild.root)
-              index++
+              // // dom:text only understands key value pairs, so to solve this problem i
+              // // will put the array value in a object as follow -> eg: [varToReplace] = '0'
+              // // where varToReplace is equal to the fisrt word for in a for expression. eg: number in numbers -> ['number'] = '0'
+              // const dataObject: any = {}
+              // dataObject["i"] = index.toString()
+              // dataObject[varToReplace] = value
+
+              // clone = await __processNode(dataObject, clone)
+              // if (clone) element.appendChild(clone.root)
+              // index++
+              console.log(value)
             }
           }
         }
         removeClassesFromHTAMLElement(htamlElement, ["htaml-cloak", "htaml-hide", "htaml-hidden"])
       }
-
-
     } else if (attribute.action === "if") {
       element.classList.add("htaml-hide")
       value = replaceVariable(value, htamlElement, { isIf: true })

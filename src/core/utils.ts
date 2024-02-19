@@ -55,10 +55,7 @@ export function removeHTAMLAttributesFromHTAMLElement(htamlElement: any) {
 }
 
 
-export function removeChildNodesFromHTAMLElement(htamlElement: HTAMLElement) {
-  htamlElement.childrens.map((htamlElement: any) => htamlElement.root.remove())
-  return htamlElement
-}
+export function removeChildNodesFromDOM(htamlElement: HTAMLElement) { htamlElement.childrens.forEach((htamlElement: any) => htamlElement.root.remove()) }
 
 export function reateEventOnHTAMLElement(htamlElement: HTAMLElement, eventName: string) {
   htamlElement.root.dispatchEvent(new Event(eventName))

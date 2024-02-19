@@ -1,0 +1,21 @@
+{
+  "diff":true,
+  "color":true,
+  "slow": 75,
+  "reporter": "spec",
+  "timeout": 2000,
+  "bail": true,
+  "require": "ts-node/register",
+  "loader": "ts-node/esm",
+  "extensions": [
+    "ts"
+  ],
+  "spec": [
+    "./tests/**/*.spec.*"
+  ],
+  "package": "./package.json",
+  "Watch": true,
+  "watch-files": [
+    "src/**/*.ts"
+  ]
+}
