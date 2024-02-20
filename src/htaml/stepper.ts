@@ -222,7 +222,6 @@ async function handleDomAttribute(htamlElement: HTAMLElement, attribute: any): P
     const element = <HTMLElement | any>htamlElement.root
     let target: HTAMLElement | HTMLElement | null | any = null
     let selector: string = ''
-    let values: any = []
     let value = attribute.value
     let variables: Array<string> = []
     let modifiers: RegExpMatchArray | null = null
@@ -374,7 +373,7 @@ async function handleDomAttribute(htamlElement: HTAMLElement, attribute: any): P
           }
         } else target.innerHTML = html
 
-        await stepThroughHTAMLElements([(await parseElement(document.body))])
+        await stepThroughHTAMLElements([parseElement(document.body)])
         break
       case "cloak":
         if (value === "cloak") element.classList.add("htaml-cloak")
