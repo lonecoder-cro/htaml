@@ -1,0 +1,83 @@
+<html id="html" lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+        <link rel="stylesheet" href="./assets/css/style.css" />
+
+        <style>
+            .htaml-hide {
+                display: none;
+            }
+
+            button {
+                margin: 0.8em 0 0.6em 0;
+                background-color: #2b2b2b;
+                cursor: pointer;
+                outline: none;
+                border: none;
+                border-radius: 5%;
+                padding: 1.2em;
+                transition-property: all;
+                color: white;
+                transition-delay: 0.3ms;
+                transition-duration: 0.5ms;
+                transition-timing-function: step-start;
+
+                &:hover {
+                    transform: scale(1.01);
+                }
+            }
+        </style>
+        <title>Random Users</title>
+    </head>
+
+    <body class="htaml-hide htaml-fadein-active">
+
+        <main id="main">
+            <section class="container">
+
+                <!-- projects -->
+                <section id="projects" class="observer">
+                    <div id="projects__header">
+                        <h3>Random <span>Users</span></h3>
+                        <h2>Who or They?</h2>
+                    </div>
+
+                    <div id="projects__ideas">
+
+                        <button h-on:trigger="click delay:500ms" h-dom:proc="users on_process:replace">Generate
+                            Random
+                            Users</button>
+
+                        <div h-dom:id="users" h-dom:cloak="cloak" h-dom:ignore="all"
+                            h-req:get="https://randomuser.me/api?results=10" h-req:out="rusers"
+                            h-run:if="this.response.status == 200 && rusers.results"
+                            h-run:for="person in rusers.results" id="projects__tabs-content">
+                            <div id="projects__project">
+                                <div id="projects__img">
+                                    <img h-dom:src="person.picture.large" h-dom:alt="person.name.first" />
+                                </div>
+                                <div id="projects__info">
+                                    <h3 h-dom:text="person.name.title,'.',person.name.first,&#32,person.name.last"></h3>
+                                    <div>
+                                        <p h-dom:text="person.location.timezone.description"></p>
+                                    </div>
+                                </div>
+                                <div id="projects__link"><a h-dom:href="person.picture.large" target="_blank"
+                                        h-dom:text="person.name.first"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </main>
+
+    </body>
+
+    <script crossorigin="anonymous" defer type="module" src="../../dist/htaml.js"></script>
+
+</html>
