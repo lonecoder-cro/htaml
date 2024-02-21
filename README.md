@@ -356,25 +356,21 @@ Accessing default attributes.
 </parent>
 ```
 
-## htaml-req attribute
+## htaml-req/areq attribute
 
-Can be use to perform http requesst.
+Can be use to perform synchronous/asynchronous requesst.
 
 ##### Actions:
 
-  * :data - data to be sent to sever
+  * :data - data to be sent to sever.
 
-  * :out - output result to a variable
+  * :out - output result to a variable.
 
-  * :config - used to configure the request
+  * :config - used to configure the request.
 
-  * :get - perform a GET request
-
-  * :aget - perform a asynchronous GET request
+  * :get - perform a GET request.
 
   * :post - perform a POST request.
-
-  * :apost - perform a asynchronous POST request
 
 #### The :out action
 
@@ -421,7 +417,7 @@ Sending a get sync/async request.
 <div h-req:get="https://api.github.com/users/"></div>
 
 <!-- asynchronous request -->
-<div h-req:aget="https://jsonplaceholder.typicode.com/photos"></div>
+<div h-areq:get="https://jsonplaceholder.typicode.com/photos"></div>
 ```
 
 Making a post sync/async request.
@@ -431,7 +427,7 @@ Making a post sync/async request.
 <div h-req:data="{name:'Jaedan Willis'}" h-req:post="https://api.github.com/users/"></div>
 
 <!-- forms sending sysynchasynchronousronous requests -->
-<div h-req:data="{name:'Jaedan Willis'}" h-req:apost="https://api.github.com/users/"></div>
+<div h-req:data="{name:'Jaedan Willis'}" h-areq:post="https://api.github.com/users/"></div>
 ```
 
 Here is a perfect example submititng a form

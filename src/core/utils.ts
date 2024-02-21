@@ -3,23 +3,6 @@ import { HTAMLElement, HTAMLElementAttributes } from "./../htaml/interface"
 
 const domIds: any = {}
 
-export function logger(message: string, type: string = "info") {
-  switch (type) {
-    case "info":
-      console.info(`[+] HTAML Logger:  ${message}`)
-      break
-    case "warn":
-      console.warn(`[+] HTAML Logger:  ${message}`)
-      break
-    case "error":
-      console.error(`[+] HTAML Logger:  ${message}`)
-      break
-    default:
-      console.log(`[+] HTAML Logger:  ${message}`)
-      break
-  }
-}
-
 export function disableEvents(htamlElement: HTAMLElement): HTAMLElement {
   switch (htamlElement.root.tagName) {
     case 'INPUT':
@@ -95,7 +78,7 @@ export function cloneHTAMLNode(htamlElement: HTAMLElement, options: any = { clon
   return clone
 }
 
-export function removeHTAMLAttributeFromHTAMLElement(htamlElement: any, attribute: HTAMLElementAttributes): HTAMLElement {
+export function removeHTAMLAttributeFromHTAMLElement(htamlElement: any, attribute: any): HTAMLElement {
   htamlElement.attributes = htamlElement.attributes.filter((_a: any) => _a.action !== attribute.action)
   htamlElement.root.removeAttribute(`${attribute.id}:${attribute.action}`)
   return htamlElement
@@ -211,26 +194,83 @@ export function createEvent(element: HTMLElement | Document, eventName: string, 
   }
 }
 
-export function htamlEvalHScript(code: string): string | null {
-  //eval hscript / javascript code
-  function _() {
-    return new Function(code)()
+export class EventEmitter {
+  listeners: any = {};
+
+  constructor() { }
+
+  listenerCount(eventName: string, func: Function): number {
+    const funcs: Array<any> = this.listeners[eventName] || []
+    return funcs.length
   }
-  const result = eval("_()")
-  if (result) return result
-  return null
+
+  rawListener(eventName: string): Array<any> {
+    return this.listeners[eventName]
+  }
+
+  addListener(eventName: string, func: Function): EventEmitter {
+    this.listeners[eventName] = this.listeners[eventName] || []
+    this.listeners[eventName].push(func)
+    return this
+  }
+
+  removeListener(eventName: string, func: Function): EventEmitter {
+    delete this.listeners[eventName]
+    return this
+  }
+
+  emit(eventName: string, ...args: any): boolean {
+    let funcs = this.listeners[eventName]
+    if (!funcs) return false
+    funcs.forEach((f: any) => {
+      f(...args)
+    })
+    return true
+  }
+
+  once(eventName: string, func: Function | any): EventEmitter {
+    this.listeners[eventName] = this.listeners[eventName] || []
+    const onceWrapper = () => {
+      func()
+      this.off(eventName, func)
+    }
+    this.listeners[eventName].push(onceWrapper)
+    return this
+  }
+
+  on(eventName: string, func: Function | any): EventEmitter {
+    return this.addListener(eventName, func)
+  }
+
+  off(eventName: string, func: Function | any): EventEmitter {
+    return this.removeListener(eventName, func)
+  }
 }
 
-export function htamlEval(code: string, options: any = { stringify: false }): string | null {
-  //eval regualr javascript code
-  function _() {
-    try {
-      return new Function(`return ${JSON.stringify(code)}`)()
-    } catch (error) {
-      return new Function(`return ${code}`)()
+export async function htamlEvalHScript(code: string): Promise<string | null> {
+  //eval hscript / javascript code
+  return new Promise((resolve, reject) => {
+    function _() {
+      return new Function(code)()
     }
-  }
-  const result = eval("_()")
-  if (result) return result
-  return null
+    const result = eval("_()")
+    if (result) return resolve(result)
+    return resolve(null)
+  })
+}
+
+export async function htamlEval(code: string, options: any = { stringify: false }): Promise<string | null> {
+  //eval regualr javascript code
+  return new Promise((resolve, reject) => {
+    function _() {
+      try {
+        return new Function(`return ${JSON.stringify(code)}`)()
+      } catch (error) {
+        return new Function(`return ${code}`)()
+      }
+    }
+    const result = eval("_()")
+    if (result) return resolve(result)
+    return resolve(null)
+  })
 }

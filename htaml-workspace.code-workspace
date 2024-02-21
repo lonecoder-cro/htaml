@@ -6,7 +6,7 @@
 	],
 	"settings": {
 		"html.format.contentUnformatted": [
-			"h-script"
+			"hscript"
 		]
 	}
 }

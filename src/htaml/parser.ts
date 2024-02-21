@@ -1,5 +1,5 @@
 import CONFIG from "../config"
-import {  disableEvents, extractHTAMLAttributesFromElement, removeHTAMLAttributesFromHTAMLElement } from "../core/utils"
+import { createEvent, disableEvents, extractHTAMLAttributesFromElement, removeHTAMLAttributesFromHTAMLElement } from "../core/utils"
 import { HTAMLElement } from "./interface"
 
 let elementId: number = -1
